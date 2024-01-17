@@ -3,10 +3,10 @@ module.exports = function (api) {
   return {
     presets: ["babel-preset-expo"],
     plugins: [
-      // Required for expo-router
-      "expo-router/babel",
       // optional, only if you ever use process.env
       "transform-inline-environment-variables",
+      // Required for expo-router
+      "expo-router/babel",
       // NOTE: this is optional, you don't *need* the compiler
       [
         "@tamagui/babel-plugin",
@@ -14,7 +14,15 @@ module.exports = function (api) {
           components: ["tamagui"],
           config: "./tamagui.config.ts",
           logTimings: true,
-          disableExtraction: process.env.NODE_ENV === "development",
+        },
+      ],
+      [
+        "module-resolver",
+        {
+          alias: {
+            "tamagui.config": "./tamagui.config.ts",
+            "@": "./src",
+          },
         },
       ],
       // NOTE: this is only necessary if you are using reanimated for animations
