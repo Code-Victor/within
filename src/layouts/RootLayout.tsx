@@ -1,6 +1,7 @@
 import { Resources } from "@/components/inc";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { TamaguiProvider } from "tamagui";
 import config from "tamagui.config";
 export {
@@ -23,7 +24,10 @@ export function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <TamaguiProvider config={config}>
         <Resources>
-          <Stack />
+          <StatusBar style="dark"   />
+          <Stack screenOptions={{
+            headerShown: false,
+          }} />
         </Resources>
       </TamaguiProvider>
     </QueryClientProvider>

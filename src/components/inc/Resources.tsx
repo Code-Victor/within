@@ -9,7 +9,7 @@ export function Resources({ children }: { children: React.ReactNode }) {
   const [fontsLoaded, fontsError] = useFonts({
     inter: require("@/assets/fonts/Inter-Regular.ttf"),
     interMedium: require("@/assets/fonts/Inter-Medium.ttf"),
-    interSemibold: require("@/assets/fonts/Inter-Semibold.ttf"),
+    interSemibold: require("@/assets/fonts/Inter-SemiBold.ttf"),
     interBold: require("@/assets/fonts/Inter-Bold.ttf"),
   });
 

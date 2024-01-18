@@ -21238,7 +21238,7 @@
   "tamaguiConfig": {
     "fonts": {
       "heading": {
-        "family": "chillax",
+        "family": "inter",
         "size": {
           "1": 12,
           "2": 14,
@@ -21313,36 +21313,36 @@
         },
         "face": {
           "100": {
-            "normal": "chillax"
+            "normal": "inter"
           },
           "200": {
-            "normal": "chillax"
+            "normal": "inter"
           },
           "300": {
-            "normal": "chillaxLight"
+            "normal": "inter"
           },
           "400": {
-            "normal": "chillax"
+            "normal": "inter"
           },
           "500": {
-            "normal": "chillaxMedium"
+            "normal": "interMedium"
           },
           "600": {
-            "normal": "chillaxSemibold"
+            "normal": "interSemibold"
           },
           "700": {
-            "normal": "chillaxBold"
+            "normal": "interBold"
           },
           "800": {
-            "normal": "chillaxBold"
+            "normal": "interBold"
           },
           "900": {
-            "normal": "chillaxBold"
+            "normal": "interBold"
           }
         }
       },
       "body": {
-        "family": "chillax",
+        "family": "inter",
         "size": {
           "1": 12,
           "2": 14,
@@ -21417,31 +21417,31 @@
         },
         "face": {
           "100": {
-            "normal": "chillax"
+            "normal": "inter"
           },
           "200": {
-            "normal": "chillax"
+            "normal": "inter"
           },
           "300": {
-            "normal": "chillaxLight"
+            "normal": "inter"
           },
           "400": {
-            "normal": "chillax"
+            "normal": "inter"
           },
           "500": {
-            "normal": "chillaxMedium"
+            "normal": "interMedium"
           },
           "600": {
-            "normal": "chillaxSemibold"
+            "normal": "interSemibold"
           },
           "700": {
-            "normal": "chillaxBold"
+            "normal": "interBold"
           },
           "800": {
-            "normal": "chillaxBold"
+            "normal": "interBold"
           },
           "900": {
-            "normal": "chillaxBold"
+            "normal": "interBold"
           }
         }
       }
@@ -21623,147 +21623,112 @@
           "isVar": true,
           "key": "$primary.1",
           "name": "color-1",
-          "val": "#e5ddf7",
+          "val": "#F7F8FC",
           "variable": ""
         },
         "primary.2": {
           "isVar": true,
           "key": "$primary.2",
           "name": "color-2",
-          "val": "#c2cffe",
+          "val": "#ECEFF9",
           "variable": ""
         },
         "primary.3": {
           "isVar": true,
           "key": "$primary.3",
           "name": "color-3",
-          "val": "#a4b8fe",
+          "val": "#E4E8F6",
           "variable": ""
         },
         "primary.4": {
           "isVar": true,
           "key": "$primary.4",
           "name": "color-4",
-          "val": "#86a0fd",
-          "variable": ""
-        },
-        "primary.5": {
-          "isVar": true,
-          "key": "$primary.5",
-          "name": "color-5",
-          "val": "#6788fd",
-          "variable": ""
-        },
-        "primary.6": {
-          "isVar": true,
-          "key": "$primary.6",
-          "name": "color-6",
-          "val": "#4970fc",
+          "val": "#708FFF",
           "variable": ""
         },
         "primary": {
           "isVar": true,
           "key": "$primary",
-          "name": "color-7",
-          "val": "#4970fc",
-          "variable": ""
-        },
-        "green.1": {
-          "isVar": true,
-          "key": "$green.1",
-          "name": "color-8",
-          "val": "#d3eadd",
-          "variable": ""
-        },
-        "green.2": {
-          "isVar": true,
-          "key": "$green.2",
-          "name": "color-9",
-          "val": "#b5dcc6",
-          "variable": ""
-        },
-        "green.3": {
-          "isVar": true,
-          "key": "$green.3",
-          "name": "color-10",
-          "val": "#90cba9",
-          "variable": ""
-        },
-        "green.4": {
-          "isVar": true,
-          "key": "$green.4",
-          "name": "color-11",
-          "val": "#6bb98c",
-          "variable": ""
-        },
-        "green.5": {
-          "isVar": true,
-          "key": "$green.5",
-          "name": "color-12",
-          "val": "#46a870",
-          "variable": ""
-        },
-        "green.6": {
-          "isVar": true,
-          "key": "$green.6",
-          "name": "color-13",
-          "val": "#219653",
-          "variable": ""
-        },
-        "green": {
-          "isVar": true,
-          "key": "$green",
-          "name": "color-14",
-          "val": "#219653",
+          "name": "color-5",
+          "val": "#708FFF",
           "variable": ""
         },
         "dark.1": {
           "isVar": true,
           "key": "$dark.1",
-          "name": "color-15",
-          "val": "#cfd1d4",
+          "name": "color-6",
+          "val": "#F7F9FA",
           "variable": ""
         },
         "dark.2": {
           "isVar": true,
           "key": "$dark.2",
-          "name": "color-16",
-          "val": "#afb2b7",
+          "name": "color-7",
+          "val": "#F2F4F5",
           "variable": ""
         },
         "dark.3": {
           "isVar": true,
           "key": "$dark.3",
-          "name": "color-17",
-          "val": "#888c94",
+          "name": "color-8",
+          "val": "#E3E5E5",
           "variable": ""
         },
         "dark.4": {
           "isVar": true,
           "key": "$dark.4",
-          "name": "color-18",
-          "val": "#606570",
+          "name": "color-9",
+          "val": "#CDCFD0",
           "variable": ""
         },
         "dark.5": {
           "isVar": true,
           "key": "$dark.5",
-          "name": "color-19",
-          "val": "#383e4c",
+          "name": "color-10",
+          "val": "#979C9E",
           "variable": ""
         },
         "dark.6": {
           "isVar": true,
           "key": "$dark.6",
-          "name": "color-20",
-          "val": "#101828",
+          "name": "color-11",
+          "val": "#72777A",
+          "variable": ""
+        },
+        "dark.7": {
+          "isVar": true,
+          "key": "$dark.7",
+          "name": "color-12",
+          "val": "#4A4D4F",
+          "variable": ""
+        },
+        "dark.8": {
+          "isVar": true,
+          "key": "$dark.8",
+          "name": "color-13",
+          "val": "#303437",
+          "variable": ""
+        },
+        "dark.9": {
+          "isVar": true,
+          "key": "$dark.9",
+          "name": "color-14",
+          "val": "#181A1B",
+          "variable": ""
+        },
+        "dark.10": {
+          "isVar": true,
+          "key": "$dark.10",
+          "name": "color-15",
+          "val": "#090A0A",
           "variable": ""
         },
         "dark": {
           "isVar": true,
           "key": "$dark",
-          "name": "color-21",
-          "val": "#101828",
+          "name": "color-16",
+          "val": "#090A0A",
           "variable": ""
         }
       },
@@ -22446,147 +22411,112 @@
         "isVar": true,
         "key": "$primary.1",
         "name": "color-1",
-        "val": "#e5ddf7",
+        "val": "#F7F8FC",
         "variable": ""
       },
       "$color.primary.2": {
         "isVar": true,
         "key": "$primary.2",
         "name": "color-2",
-        "val": "#c2cffe",
+        "val": "#ECEFF9",
         "variable": ""
       },
       "$color.primary.3": {
         "isVar": true,
         "key": "$primary.3",
         "name": "color-3",
-        "val": "#a4b8fe",
+        "val": "#E4E8F6",
         "variable": ""
       },
       "$color.primary.4": {
         "isVar": true,
         "key": "$primary.4",
         "name": "color-4",
-        "val": "#86a0fd",
-        "variable": ""
-      },
-      "$color.primary.5": {
-        "isVar": true,
-        "key": "$primary.5",
-        "name": "color-5",
-        "val": "#6788fd",
-        "variable": ""
-      },
-      "$color.primary.6": {
-        "isVar": true,
-        "key": "$primary.6",
-        "name": "color-6",
-        "val": "#4970fc",
+        "val": "#708FFF",
         "variable": ""
       },
       "$color.primary": {
         "isVar": true,
         "key": "$primary",
-        "name": "color-7",
-        "val": "#4970fc",
-        "variable": ""
-      },
-      "$color.green.1": {
-        "isVar": true,
-        "key": "$green.1",
-        "name": "color-8",
-        "val": "#d3eadd",
-        "variable": ""
-      },
-      "$color.green.2": {
-        "isVar": true,
-        "key": "$green.2",
-        "name": "color-9",
-        "val": "#b5dcc6",
-        "variable": ""
-      },
-      "$color.green.3": {
-        "isVar": true,
-        "key": "$green.3",
-        "name": "color-10",
-        "val": "#90cba9",
-        "variable": ""
-      },
-      "$color.green.4": {
-        "isVar": true,
-        "key": "$green.4",
-        "name": "color-11",
-        "val": "#6bb98c",
-        "variable": ""
-      },
-      "$color.green.5": {
-        "isVar": true,
-        "key": "$green.5",
-        "name": "color-12",
-        "val": "#46a870",
-        "variable": ""
-      },
-      "$color.green.6": {
-        "isVar": true,
-        "key": "$green.6",
-        "name": "color-13",
-        "val": "#219653",
-        "variable": ""
-      },
-      "$color.green": {
-        "isVar": true,
-        "key": "$green",
-        "name": "color-14",
-        "val": "#219653",
+        "name": "color-5",
+        "val": "#708FFF",
         "variable": ""
       },
       "$color.dark.1": {
         "isVar": true,
         "key": "$dark.1",
-        "name": "color-15",
-        "val": "#cfd1d4",
+        "name": "color-6",
+        "val": "#F7F9FA",
         "variable": ""
       },
       "$color.dark.2": {
         "isVar": true,
         "key": "$dark.2",
-        "name": "color-16",
-        "val": "#afb2b7",
+        "name": "color-7",
+        "val": "#F2F4F5",
         "variable": ""
       },
       "$color.dark.3": {
         "isVar": true,
         "key": "$dark.3",
-        "name": "color-17",
-        "val": "#888c94",
+        "name": "color-8",
+        "val": "#E3E5E5",
         "variable": ""
       },
       "$color.dark.4": {
         "isVar": true,
         "key": "$dark.4",
-        "name": "color-18",
-        "val": "#606570",
+        "name": "color-9",
+        "val": "#CDCFD0",
         "variable": ""
       },
       "$color.dark.5": {
         "isVar": true,
         "key": "$dark.5",
-        "name": "color-19",
-        "val": "#383e4c",
+        "name": "color-10",
+        "val": "#979C9E",
         "variable": ""
       },
       "$color.dark.6": {
         "isVar": true,
         "key": "$dark.6",
-        "name": "color-20",
-        "val": "#101828",
+        "name": "color-11",
+        "val": "#72777A",
+        "variable": ""
+      },
+      "$color.dark.7": {
+        "isVar": true,
+        "key": "$dark.7",
+        "name": "color-12",
+        "val": "#4A4D4F",
+        "variable": ""
+      },
+      "$color.dark.8": {
+        "isVar": true,
+        "key": "$dark.8",
+        "name": "color-13",
+        "val": "#303437",
+        "variable": ""
+      },
+      "$color.dark.9": {
+        "isVar": true,
+        "key": "$dark.9",
+        "name": "color-14",
+        "val": "#181A1B",
+        "variable": ""
+      },
+      "$color.dark.10": {
+        "isVar": true,
+        "key": "$dark.10",
+        "name": "color-15",
+        "val": "#090A0A",
         "variable": ""
       },
       "$color.dark": {
         "isVar": true,
         "key": "$dark",
-        "name": "color-21",
-        "val": "#101828",
+        "name": "color-16",
+        "val": "#090A0A",
         "variable": ""
       },
       "$radius.0": {

@@ -38,7 +38,7 @@ const BaseButton = styled(TMButton, {
         color: "white",
         opacity: 1,
         pressStyle: {
-          bg: "#ffffff11",
+          bg: "#00000020",
         },
       },
       "dark-ghost": {
@@ -83,7 +83,7 @@ const BaseButton = styled(TMButton, {
 
 type ButtonProps = Omit<ComponentProps<typeof BaseButton>, "loading">;
 
-export default forwardRef<
+export const Button = forwardRef<
   ElementRef<typeof BaseButton>,
   ButtonProps & { loading?: boolean }
 >(function Button({ loading, icon, ...props }, ref) {
