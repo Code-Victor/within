@@ -2,6 +2,7 @@ import { Resources } from "@/components/inc";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 import config from "tamagui.config";
 export {
@@ -25,9 +26,13 @@ export function RootLayout() {
       <TamaguiProvider config={config}>
         <Resources>
           <StatusBar style="dark"   />
-          <Stack screenOptions={{
-            headerShown: false,
-          }} />
+          <SafeAreaView style={{
+            flex:1
+          }}>
+            <Stack screenOptions={{
+              headerShown: false,
+            }} />
+          </SafeAreaView>
         </Resources>
       </TamaguiProvider>
     </QueryClientProvider>
