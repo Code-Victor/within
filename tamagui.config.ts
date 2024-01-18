@@ -43,7 +43,7 @@ const fontSizes = {
   12: 96,
 };
 const chillaxFont = createFont({
-  family: "chillax",
+  family: "inter",
   size: fontSizes,
   // Simulating lineHeight: 1.6 or 160% in chillax font
   lineHeight: Object.fromEntries(
@@ -63,11 +63,10 @@ const chillaxFont = createFont({
   },
   // for native only, alternate family based on weight/style
   face: {
-    300: { normal: "chillaxLight" },
-    400: { normal: "chillax" },
-    500: { normal: "chillaxMedium" },
-    600: { normal: "chillaxSemibold" },
-    700: { normal: "chillaxBold" },
+    400: { normal: "inter" },
+    500: { normal: "interMedium" },
+    600: { normal: "interSemibold" },
+    700: { normal: "interBold" },
   },
 });
 
