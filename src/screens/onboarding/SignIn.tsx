@@ -1,18 +1,12 @@
-import {
-  Text,
-  Button,
-  PageHeader,
-  Icon,
-  Input,
-  PasswordInput,
-} from "@/components/base";
+import { Text, Button, Icon, Input, PasswordInput } from "@/components/base";
+import { StackHeader } from "@/components/inc";
 import { View, YStack, XStack, ScrollView } from "tamagui";
 import React from "react";
 
 const SignIn = () => {
   return (
     <YStack f={1} bg="white">
-      <PageHeader name="" backButton />
+      <StackHeader name="" backButton />
       <ScrollView f={1}>
         <YStack px="$4" gap="$6">
           <Icon name="Logo" />

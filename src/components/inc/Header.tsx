@@ -55,9 +55,9 @@ export const DrawerHeader = () => {
       </View>
     </XStack>
   );
-}
+};
 
-export function PageHeader<T>({
+export function StackHeader<T>({
   name,
   backButton = false,
   bare = false,
