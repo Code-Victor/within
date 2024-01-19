@@ -7,7 +7,7 @@ export interface IconProps extends SvgProps {
   name: IconName;
 }
 
-export default function Icon({ name, ...rest }: IconProps) {
+export function Icon({ name, ...rest }: IconProps) {
   const Icon = icons[name];
   return <Icon {...rest} />;
 }

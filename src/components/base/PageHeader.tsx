@@ -1,10 +1,9 @@
 import React from "react";
 import { Href, useRouter } from "expo-router";
 import { View, XStack } from "tamagui";
-import { Button, Text } from "@/components/base";
+import { Button, Text, Icon } from "@/components/base";
 import { useWindowDimensions } from "react-native";
-import Icon from "./Icon";
-export default function PageHeader<T>({
+export function PageHeader<T>({
   name,
   backButton = false,
   bare = false,
