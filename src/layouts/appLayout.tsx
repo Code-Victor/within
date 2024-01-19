@@ -98,15 +98,8 @@ export default function Layout() {
         headerShown: false,
       }}
       drawerContent={CustomDrawerContent}
-    >
-      <Drawer.Screen
-        name="index" // This is the name of the page and must match the url from root
-        options={{
-          drawerLabel: "Home",
-          title: "overview",
-        }}
-      />
-    </Drawer>
+      initialRouteName="index"
+    />
   );
 }
 

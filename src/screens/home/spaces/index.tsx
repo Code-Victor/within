@@ -5,16 +5,19 @@ import { YStack, getTokens } from "tamagui";
 const Spaces = () => {
   const mySpaces = [
     {
+      id: "1",
       imageUrl: "",
       name: "Minervas",
       createdBy: "you",
     },
     {
+      id: "2",
       imageUrl: "",
       name: "NAMS OAU",
       createdBy: "you",
     },
     {
+      id: "3",
       imageUrl: "",
       name: "Aquilas",
       createdBy: "you",
