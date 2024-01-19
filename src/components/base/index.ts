@@ -3,3 +3,4 @@ export * from "./Text";
 export * from "./Icon";
 export * from "./PageHeader";
 export * from "./Input";
+export * from "./Modal";
