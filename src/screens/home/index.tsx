@@ -1,9 +1,18 @@
-import { Button, Text } from "@/components/base";
+import { Button, Icon, Modal, Text } from "@/components/base";
 import { DrawerHeader, Schedule, Space } from "@/components/inc";
+import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { View, XStack, YStack, getTokens } from "tamagui";
+import { Create, Join } from "./components";
 
 const Home = () => {
+  const [modal, setModal] = useState<null | "join" | "create">(null);
+
+  const modals = {
+    join: <Join />,
+    create: <Create />,
+  };
+
   const schedules = [
     {
       title: "Match Against Geology",
@@ -45,6 +54,28 @@ const Home = () => {
 
   return (
     <View f={1}>
+      <Modal open={!!modal} onOpenChange={() => setModal(null)}>
+        <Modal.Content bg="white" f={1} width={"100%"} pt={45}>
+          <XStack gap="$5" ai="center" px="$4" h="10%">
+            <Button
+            type="ghost"
+            zIndex={10000}
+            size="$4"
+            // bg="$primary.3"
+            circular
+            onPress={() => setModal(null)}
+            // pressStyle={{bg: "$primary.2"}}
+            icon={<Icon name="Close" width={28} height={28} />}
+            />
+            <XStack>
+              <Text type="h3" tt="capitalize">{modal}</Text>
+              <Text type="h3"> a Space</Text>
+            </XStack>
+            {/* <View /> */}
+          </XStack>
+          {modal ? modals[modal] : null}
+        </Modal.Content>
+      </Modal>
       <DrawerHeader />
       <FlatList
         ListHeaderComponent={() => {
@@ -55,10 +86,10 @@ const Home = () => {
                 <Text type="body1">Oluserti</Text>
               </XStack>
               <XStack px="$4" jc="space-between" ai="center" gap="$2">
-                <Button type="outline" f={1}>
+                <Button onPress={() => setModal("join")} type="outline" f={1}>
                   Join a Space
                 </Button>
-                <Button type="primary" f={1}>
+                <Button onPress={() => setModal("create")} type="primary" f={1}>
                   Create a Space
                 </Button>
               </XStack>

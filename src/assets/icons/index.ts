@@ -6,3 +6,4 @@ export { default as Menu } from "./menu.svg";
 export { default as Notification } from "./notification-line.svg";
 export { default as Close } from "./close.svg";
 export { default as ChevronRight } from "./chevron-right.svg";
+export { default as Camera } from "./camera.svg";

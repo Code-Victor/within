@@ -16,6 +16,7 @@ export const Input = ({ icon, label, error, ...props }: InputProps) => {
   const hasError = !!error;
   return (
     <View ai="flex-start" width="100%">
+      { label &&
       <Text
         fontSize="$2"
         lineHeight="$2"
@@ -24,10 +25,10 @@ export const Input = ({ icon, label, error, ...props }: InputProps) => {
         mb={5}
       >
         {label}
-      </Text>
+      </Text> }
       <XStack
         fd="row"
-        bg={"transparent"}
+        bg={"white"}
         br="$4"
         borderWidth={1}
         borderColor={hasError ? "#FF5555" : focused ? "$primary" : "$dark.2"}
