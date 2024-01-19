@@ -1,9 +1,15 @@
 import { router } from "react-query-kit";
-import { sampleRequest } from "..";
+import { getUser, login, signup } from "..";
 
-export const sampleRouter = router("sample", {
-  sample: router.query({
-    fetcher: sampleRequest,
+export const authRouter = router("auth", {
+  login: router.mutation({
+    mutationFn: login,
+  }),
+  signup: router.mutation({
+    mutationFn: signup,
+  }),
+  user: router.query({
+    fetcher: getUser,
   }),
 });
 
