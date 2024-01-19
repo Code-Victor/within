@@ -24,7 +24,7 @@ const Links: { name: string; url: Href<any> }[] = [
   },
   {
     name: "Your spaces",
-    url: "/",
+    url: "/spaces",
   },
   {
     name: "Notifications",
