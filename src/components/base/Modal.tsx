@@ -10,6 +10,8 @@ import {
 } from "tamagui";
 import { Button, Icon } from ".";
 import { BackHandler } from "react-native";
+import { SafeAreaView } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 export function Modal({ children, ...dialogProps }: DialogProps) {
   React.useEffect(() => {
@@ -66,7 +68,10 @@ function Content({
         exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
         {...contentProps}
       >
-        {children}
+        <SafeAreaView>
+          <StatusBar style="dark" />
+          {children}
+        </SafeAreaView>
       </Dialog.Content>
     </Dialog.Portal>
   );
@@ -76,17 +81,20 @@ Modal.Content = Content;
 Modal.Title = Dialog.Title;
 Modal.Description = Dialog.Description;
 Modal.CancelButton = () => {
-  <Unspaced>
-    <Dialog.Close asChild>
-      <Button
-        position="absolute"
-        top="$3"
-        right="$3"
-        size="$2"
-        circular
-        bg="$neutral.gray3"
-        icon={<Icon name="Close" width={24} height={24} />}
-      />
-    </Dialog.Close>
-  </Unspaced>;
+  return (
+    <Unspaced>
+      <Dialog.Close asChild>
+        <Button
+          position="absolute"
+          top="$3"
+          zIndex={10000}
+          right="$3"
+          size="$4"
+          bg="$primary.3"
+          circular
+          icon={<Icon name="Close" width={24} height={24} />}
+        />
+      </Dialog.Close>
+    </Unspaced>
+  );
 };
