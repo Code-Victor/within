@@ -1,11 +1,8 @@
-import EyeLineIcon from "@/assets/icons/eye-line.svg";
-import EyeOffLineIcon from "@/assets/icons/eye-off-line.svg";
-import SolidSortDown from "@/assets/icons/solid-sort-down.svg";
 import { Image } from "expo-image";
 import React from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { SizeTokens, Input as TMInput, View, XStack, getTokens } from "tamagui";
-import { Button, Text } from ".";
+import { Button, Icon, Text } from ".";
 import { Control, Path, PathValue, useController } from "react-hook-form";
 
 interface InputProps extends React.ComponentProps<typeof TMInput> {
@@ -13,20 +10,27 @@ interface InputProps extends React.ComponentProps<typeof TMInput> {
   label?: string;
   error?: string;
 }
-const Input = ({ icon, label, error, ...props }: InputProps) => {
+export const Input = ({ icon, label, error, ...props }: InputProps) => {
   const [focused, setFocused] = React.useState(false);
 
   const hasError = !!error;
   return (
     <View ai="flex-start" width="100%">
+      <Text
+        fontSize="$2"
+        lineHeight="$2"
+        color={hasError ? "#FF5555" : focused ? "$primary" : "$dark.7"}
+        fontWeight="500"
+        mb={5}
+      >
+        {label}
+      </Text>
       <XStack
         fd="row"
         bg={"transparent"}
         br="$4"
-        px="$5"
-        py={"$4"}
         borderWidth={1}
-        borderColor={hasError ? "#FF5555" : focused ? "$primary" : "$dark"}
+        borderColor={hasError ? "#FF5555" : focused ? "$primary" : "$dark.2"}
       >
         {icon ? icon : null}
         <TMInput
@@ -35,8 +39,8 @@ const Input = ({ icon, label, error, ...props }: InputProps) => {
           color="white"
           fontFamily="$body"
           flex={1}
-          h="$2"
-          px={0}
+          lineHeight={21}
+          p="$3"
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           borderColor="transparent"
@@ -94,44 +98,33 @@ export const PasswordInput = ({ icon, label, error, ...props }: InputProps) => {
   const size: SizeTokens = "$3";
   return (
     <View ai="flex-start" width="100%">
-      <View
-        borderWidth={2}
-        borderColor={hasError ? "#FF5555" : "$primary"}
-        bg={hasError ? "#FFAAAA" : focused ? "$primary.3" : "$primary.4"}
-        br="$10"
-        px="$2.5"
-        py="$1"
-        mb="$-2"
-        ml="$4"
-        zIndex={4}
+      <Text
+        fontSize="$2"
+        lineHeight="$2"
+        color={hasError ? "#FF5555" : focused ? "$primary" : "$dark.7"}
+        fontWeight="500"
+        mb={5}
       >
-        <Text
-          fontSize={10}
-          color={hasError ? "#FF0000" : "white"}
-          fontWeight="600"
-        >
-          {label}
-        </Text>
-      </View>
+        {label}
+      </Text>
       <XStack
         fd="row"
-        bg={focused ? "$primary.4" : "$primary.5"}
+        bg={"transparent"}
         br="$4"
-        px="$4"
-        py="$2.5"
-        borderWidth={hasError ? 1 : 0}
-        borderColor={"#FF5555"}
+        ai="center"
+        borderWidth={1}
+        borderColor={hasError ? "#FF5555" : focused ? "$primary" : "$dark.2"}
       >
         {icon ? icon : null}
         <TMInput
           unstyled
           placeholder="********"
           placeholderTextColor={"#FFFFFF80"}
-          color="white"
+          color="$dark"
           flex={1}
           fontFamily="$body"
-          h={size}
-          px={0}
+          lineHeight={21}
+          p="$3"
           secureTextEntry={!showPassword}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -140,16 +133,16 @@ export const PasswordInput = ({ icon, label, error, ...props }: InputProps) => {
           {...props}
         />
         <Button
+          h={"100%"}
           icon={
             showPassword ? (
-              <EyeOffLineIcon width={24} height={24} />
+              <Icon color="#CDCFD0" name="EyeSlash" width={24} height={24} />
             ) : (
-              <EyeLineIcon width={24} height={24} />
+              <Icon color="#CDCFD0" name="Eye" width={24} height={24} />
             )
           }
           circular
           br="$4"
-          size={size}
           bg="transparent"
           onPress={() => setShowPassword(!showPassword)}
           pressStyle={{
@@ -187,4 +180,3 @@ export const ControlledPasswordInput = <T extends object>({
     />
   );
 };
-export default Input;
