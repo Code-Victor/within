@@ -1,5 +1,6 @@
-import { Button, Text } from "@/components/base";
+import { Button, Icon, Text } from "@/components/base";
 import { Schedule, Space } from "@/components/inc";
+import { useNavigation } from "expo-router";
 import React from "react";
 import { FlatList } from "react-native";
 import { View, YStack, XStack, ScrollView, getTokens } from "tamagui";
@@ -46,6 +47,7 @@ const Home = () => {
 
   return (
     <View f={1}>
+      <HomeHeader />
       <FlatList
         ListHeaderComponent={() => {
           return (
@@ -122,4 +124,57 @@ const Home = () => {
   );
 };
 
+function HomeHeader() {
+  const navigation = useNavigation();
+  return (
+    <XStack
+      px={"$4"}
+      py={20}
+      position="relative"
+      ai="center"
+      jc="center"
+      bg="white"
+    >
+      <View
+        position="absolute"
+        left={0}
+        top={0}
+        bottom={0}
+        ai="center"
+        jc="center"
+        ml={"$4"}
+      >
+        <Button
+          size={"$4"}
+          zIndex={1}
+          type="ghost"
+          circular
+          icon={<Icon name="Menu" height={24} width={24} />}
+          onPress={() => {
+            //@ts-ignore
+            navigation.openDrawer();
+          }}
+        />
+      </View>
+      <Icon name="Logo" aria-label="Within Logo" />
+      <View
+        position="absolute"
+        right={0}
+        top={0}
+        bottom={0}
+        ai="center"
+        jc="center"
+        mr={"$4"}
+      >
+        <Button
+          size={"$4"}
+          zIndex={1}
+          type="ghost"
+          circular
+          icon={<Icon name="Notification" height={24} width={24} />}
+        />
+      </View>
+    </XStack>
+  );
+}
 export default Home;

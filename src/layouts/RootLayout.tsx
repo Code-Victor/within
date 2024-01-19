@@ -25,13 +25,17 @@ export function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <TamaguiProvider config={config}>
         <Resources>
-          <StatusBar style="dark"   />
-          <SafeAreaView style={{
-            flex:1
-          }}>
-            <Stack screenOptions={{
-              headerShown: false,
-            }} />
+          <StatusBar style="dark" />
+          <SafeAreaView
+            style={{
+              flex: 1,
+            }}
+          >
+            <Stack
+              screenOptions={{
+                headerShown: false,
+              }}
+            />
           </SafeAreaView>
         </Resources>
       </TamaguiProvider>
