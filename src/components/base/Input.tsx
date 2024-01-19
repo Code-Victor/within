@@ -35,8 +35,8 @@ export const Input = ({ icon, label, error, ...props }: InputProps) => {
         {icon ? icon : null}
         <TMInput
           unstyled
-          placeholderTextColor={"#FFFFFF80"}
-          color="white"
+          placeholderTextColor={"$dark.5"}
+          color="$dark"
           fontFamily="$body"
           flex={1}
           lineHeight={21}
@@ -119,7 +119,7 @@ export const PasswordInput = ({ icon, label, error, ...props }: InputProps) => {
         <TMInput
           unstyled
           placeholder="********"
-          placeholderTextColor={"#FFFFFF80"}
+          placeholderTextColor={"$dark.5"}
           color="$dark"
           flex={1}
           fontFamily="$body"
