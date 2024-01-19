@@ -49,7 +49,7 @@ const Successful = (props:CreateType) => {
           <Text type="body2" textAlign="center" px="$6">You can now share your unique code with intended members</Text>
         </YStack>
         <Image source={require("../../../assets/images/complete.png")} style={{width: "100%", aspectRatio: 1.35, marginTop: 20, marginBottom: 20}} />
-        <YStack gap="$2" bg="white" borderColor="$dark.2" borderWidth="$0.5" p="$4" borderRadius="$4">
+        <YStack gap="$2" bg="white" borderColor="$dark.2" borderWidth={1} p="$4" borderRadius="$4">
           <Text type="body1">Here's your space code</Text>
           <Input value={"121212"} />
           <Button type="outline" size="$5" mt="$2">Copy space code</Button>
