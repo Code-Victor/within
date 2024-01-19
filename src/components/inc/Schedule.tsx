@@ -8,7 +8,7 @@ export type ScheduleType = {
   timeout: string;
 }
 
-const Schedule = (props:ScheduleType) => {
+export const Schedule = (props:ScheduleType) => {
 
   const {
     title,
@@ -28,5 +28,3 @@ const Schedule = (props:ScheduleType) => {
     </YStack>
   )
 }
-
-export default Schedule

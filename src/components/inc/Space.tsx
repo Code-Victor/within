@@ -10,7 +10,7 @@ export type SpaceType = {
   createdBy: string;
 };
 
-const Space = (props: SpaceType) => {
+export const Space = (props: SpaceType) => {
   const { id, name, imageUrl, createdBy } = props;
 
   return (
@@ -50,5 +50,3 @@ const Space = (props: SpaceType) => {
     </View>
   );
 };
-
-export default Space;

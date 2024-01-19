@@ -1,9 +1,9 @@
 import { Text } from "@/components/base"
 
-const Payable = () => {
+const Details = () => {
   return (
     <Text>Payable</Text>
   )
 }
 
-export default Payable
+export default Details

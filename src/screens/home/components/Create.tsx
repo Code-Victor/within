@@ -1,14 +1,18 @@
 import { Button, Icon, Input, Text } from "@/components/base"
+import { Image } from "expo-image"
+import { Link, useNavigation, useRouter } from "expo-router"
+import { useState } from "react"
 import { View, YStack } from "tamagui"
 
-const Create = () => {
+type CreateType = {
+  closeModal: any
+}
 
-  // request
-
-  const success = true
+const Create = (props:CreateType) => {
+  const [success, setSuccessful] = useState(false)
 
   if (success) {
-    return <Successful />
+    return <Successful closeModal={props.closeModal} />
   }
   return (
     <YStack p="$4" pb="$8" h="90%" bg="$primary.1" jc="space-between">
@@ -23,12 +27,20 @@ const Create = () => {
         <Input label="Name of space" />
         <Input label="Name of space" multiline numberOfLines={6} textAlignVertical="top" />
       </View>
-      <Button w="100%" size="$5">Create</Button>
+      <Button w="100%" size="$5" onPress={() => setSuccessful(true)}>Create</Button>
     </YStack>
   )
 }
 
-const Successful = () => {
+const Successful = (props:CreateType) => {
+
+  const router = useRouter()
+
+  const goToSpace = () => {
+    router.push("/spaces/1234567")
+    props.closeModal()
+  }
+
   return (
     <YStack p="$4" pb="$8" h="90%" bg="$primary.1" jc="space-between">
       <YStack pt="$5">
@@ -36,12 +48,14 @@ const Successful = () => {
           <Text type="h2" color="$primary" textAlign="center">Space Created!</Text>
           <Text type="body2" textAlign="center" px="$6">You can now share your unique code with intended members</Text>
         </YStack>
-        <YStack gap="$4">
-          <Input label="Your space code" value={"121212"} />
-          <Button type="outline" size="$5">Copy space code</Button>
+        <Image source={require("../../../assets/images/complete.png")} style={{width: "100%", aspectRatio: 1.35, marginTop: 20, marginBottom: 20}} />
+        <YStack gap="$2" bg="white" borderColor="$dark.2" borderWidth="$0.5" p="$4" borderRadius="$4">
+          <Text type="body1">Here's your space code</Text>
+          <Input value={"121212"} />
+          <Button type="outline" size="$5" mt="$2">Copy space code</Button>
         </YStack>
       </YStack>
-      <Button size="$5">Proceed to Space</Button>
+      <Button size="$5" onPress={() => goToSpace()}>Proceed to Space</Button>
     </YStack>
   )
 }

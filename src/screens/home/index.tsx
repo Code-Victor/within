@@ -4,14 +4,20 @@ import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { View, XStack, YStack, getTokens } from "tamagui";
 import { Create, Join } from "./components";
+import { Link } from "expo-router";
 
 const Home = () => {
   const [modal, setModal] = useState<null | "join" | "create">(null);
 
+  const closeModal = () => {
+    setModal(null)
+  }
+
   const modals = {
     join: <Join />,
-    create: <Create />,
+    create: <Create closeModal={closeModal} />,
   };
+
 
   const schedules = [
     {
@@ -64,17 +70,14 @@ const Home = () => {
             type="ghost"
             zIndex={10000}
             size="$4"
-            // bg="$primary.3"
             circular
-            onPress={() => setModal(null)}
-            // pressStyle={{bg: "$primary.2"}}
+            onPress={closeModal}
             icon={<Icon name="Close" width={28} height={28} />}
             />
             <XStack>
               <Text type="h3" tt="capitalize">{modal}</Text>
               <Text type="h3"> a Space</Text>
             </XStack>
-            {/* <View /> */}
           </XStack>
           {modal ? modals[modal] : null}
         </Modal.Content>
@@ -84,6 +87,9 @@ const Home = () => {
         ListHeaderComponent={() => {
           return (
             <YStack gap="$6" py="$4" bg="$primary.1" f={1}>
+              <Link href="/spaces/123/payments" asChild>
+                <Button>Temp Payments CTA</Button>
+              </Link>
               <XStack px="$4" ai="center" gap="$1">
                 <Text type="h4">Welcome,</Text>
                 <Text type="body1">Oluserti</Text>
