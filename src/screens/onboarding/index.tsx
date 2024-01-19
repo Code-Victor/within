@@ -3,8 +3,15 @@ import { StyleSheet } from "react-native";
 import { YStack, Image } from "tamagui";
 import { Button, Icon, Text } from "@/components/base";
 import { Link, router } from "expo-router";
+import useStore from "@/store";
 
 export default function Sample() {
+  const setOnboardingComplete = useStore(
+    (state) => state.setOnboardingComplete
+  );
+  function completeOnboarding() {
+    setOnboardingComplete(true);
+  }
   return (
     <YStack bg="white" f={1} pb="$6">
       <YStack f={3} ai="center" jc="center">
@@ -37,11 +44,13 @@ export default function Sample() {
           </Text>
         </YStack>
         <YStack gap="$3" px="$4">
-          <Link href="/onboarding/signup" asChild>
-            <Button>Let's start</Button>
+          <Link href="/(onboarding)/signup" asChild>
+            <Button onPress={completeOnboarding}>Let's start</Button>
           </Link>
-          <Link href="/onboarding/signin" asChild>
-            <Button type="ghost">Already have an account? SIGN IN</Button>
+          <Link href="/(onboarding)/signin" asChild>
+            <Button type="ghost" onPress={completeOnboarding}>
+              Already have an account? SIGN IN
+            </Button>
           </Link>
         </YStack>
       </YStack>

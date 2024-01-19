@@ -4,6 +4,7 @@ import "react-native-reanimated";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { useEffect } from "react";
+import { useIsRestoring } from "@tanstack/react-query";
 
 export function Resources({ children }: { children: React.ReactNode }) {
   const [fontsLoaded, fontsError] = useFonts({
@@ -12,9 +13,10 @@ export function Resources({ children }: { children: React.ReactNode }) {
     interSemibold: require("@/assets/fonts/Inter-SemiBold.ttf"),
     interBold: require("@/assets/fonts/Inter-Bold.ttf"),
   });
+  const restoring = useIsRestoring(); // This is a hook from react-query-persist-client.
 
   useEffect(() => {
-    if (fontsLoaded || fontsError) {
+    if ((fontsLoaded || fontsError) && !restoring) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontsError]);

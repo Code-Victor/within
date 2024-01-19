@@ -5,6 +5,9 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TamaguiProvider } from "tamagui";
 import config from "tamagui.config";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -17,12 +20,18 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
+//TODO: ADD REMOTE NOTIFICATIONS
 const queryClient = new QueryClient();
+const asyncStoragePersister = createAsyncStoragePersister({
+  storage: AsyncStorage,
+});
 
 export function RootLayout() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister: asyncStoragePersister }}
+    >
       <TamaguiProvider config={config}>
         <Resources>
           <StatusBar style="dark" />
@@ -39,6 +48,6 @@ export function RootLayout() {
           </SafeAreaView>
         </Resources>
       </TamaguiProvider>
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }
