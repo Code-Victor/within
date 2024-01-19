@@ -35,7 +35,7 @@ const BaseButton = styled(TMButton, {
       ghost: {
         bg: "transparent",
         borderColor: "transparent",
-        color: "white",
+        color: "$dark",
         opacity: 1,
         pressStyle: {
           bg: "#00000020",
