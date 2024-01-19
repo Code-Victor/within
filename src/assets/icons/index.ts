@@ -7,3 +7,6 @@ export { default as Notification } from "./notification-line.svg";
 export { default as Close } from "./close.svg";
 export { default as ChevronRight } from "./chevron-right.svg";
 export { default as Camera } from "./camera.svg";
+export { default as Settings } from "./settings.svg";
+export { default as User } from "./user.svg";
+export { default as Users } from "./users.svg";

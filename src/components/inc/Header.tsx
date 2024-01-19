@@ -55,9 +55,9 @@ export const DrawerHeader = () => {
       </View>
     </XStack>
   );
-}
+};
 
-export function PageHeader<T>({
+export function StackHeader<T>({
   name,
   backButton = false,
   bare = false,
@@ -104,7 +104,7 @@ export function PageHeader<T>({
         )}
       </View>
       <View width={width * 0.65}>
-        <Text fontWeight="700" fontSize="$6.5" ta="center" numberOfLines={1}>
+        <Text fontWeight="700" fontSize="$5" ta="center" numberOfLines={1}>
           {name}
         </Text>
       </View>
