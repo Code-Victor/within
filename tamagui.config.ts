@@ -45,9 +45,9 @@ const fontSizes = {
 const chillaxFont = createFont({
   family: "inter",
   size: fontSizes,
-  // Simulating lineHeight: 1.6 or 160% in chillax font
+  // Simulating lineHeight: 1.5 or 150% in chillax font
   lineHeight: Object.fromEntries(
-    Object.entries(fontSizes).map(([k, v]) => [k, +v * 1.6])
+    Object.entries(fontSizes).map(([k, v]) => [k, +v * 1.5])
   ) as typeof fontSizes,
   weight: {
     1: "300",
