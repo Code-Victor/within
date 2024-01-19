@@ -8,7 +8,9 @@ import {
   Sheet,
   Unspaced,
 } from "tamagui";
-import { Button, Icon } from ".";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
+
 import { BackHandler } from "react-native";
 import { SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";

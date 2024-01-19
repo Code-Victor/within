@@ -1,9 +1,9 @@
-import { Image } from "expo-image";
 import React from "react";
-import { FlatList, TouchableOpacity } from "react-native";
-import { SizeTokens, Input as TMInput, View, XStack, getTokens } from "tamagui";
-import { Button, Icon, Text } from ".";
 import { Control, Path, PathValue, useController } from "react-hook-form";
+import { SizeTokens, Input as TMInput, View, XStack } from "tamagui";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
+import { Text } from "./Text";
 
 interface InputProps extends React.ComponentProps<typeof TMInput> {
   icon?: React.ReactNode;
@@ -16,16 +16,17 @@ export const Input = ({ icon, label, error, ...props }: InputProps) => {
   const hasError = !!error;
   return (
     <View ai="flex-start" width="100%">
-      { label &&
-      <Text
-        fontSize="$2"
-        lineHeight="$2"
-        color={hasError ? "#FF5555" : focused ? "$primary" : "$dark.7"}
-        fontWeight="500"
-        mb={5}
-      >
-        {label}
-      </Text> }
+      {label && (
+        <Text
+          fontSize="$2"
+          lineHeight="$2"
+          color={hasError ? "#FF5555" : focused ? "$primary" : "$dark.7"}
+          fontWeight="500"
+          mb={5}
+        >
+          {label}
+        </Text>
+      )}
       <XStack
         fd="row"
         bg={"white"}
