@@ -9,8 +9,20 @@ import {
   Unspaced,
 } from "tamagui";
 import { Button, Icon } from ".";
+import { BackHandler } from "react-native";
 
 export function Modal({ children, ...dialogProps }: DialogProps) {
+  React.useEffect(() => {
+    if (!dialogProps.open) return;
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        dialogProps.onOpenChange?.(false);
+        return true;
+      }
+    );
+    return () => backHandler.remove();
+  }, [dialogProps.open]);
   return (
     <Dialog modal {...dialogProps}>
       {children}
