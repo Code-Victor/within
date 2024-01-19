@@ -10,3 +10,5 @@ export { default as Camera } from "./camera.svg";
 export { default as Settings } from "./settings.svg";
 export { default as User } from "./user.svg";
 export { default as Users } from "./users.svg";
+export { default as Add } from "./add.svg";
+export { default as Dollar } from "./dollar.svg";

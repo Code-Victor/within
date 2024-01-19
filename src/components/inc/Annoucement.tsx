@@ -5,7 +5,7 @@ import { Link, router } from "expo-router";
 
 export function Annoucement() {
   return (
-    <YStack gap="$4">
+    <YStack gap="$4" px="$4">
       <XStack jc="space-between" ai="baseline">
         <Text type="h4">Annoucements</Text>
         <Link href="/">

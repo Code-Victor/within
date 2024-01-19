@@ -34,3 +34,9 @@ export function timeSince(date: Date) {
   }
   return Math.floor(seconds) + " seconds";
 }
+
+export function getAvatar(name: string) {
+  const avatarUrl = `https://api.dicebear.com/7.x/adventurer/png?backgroundColor=B9C8FF&seed=${name}`;
+
+  return avatarUrl;
+}

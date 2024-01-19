@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 const DefaultStack = () => {
   return (
     <Stack
+      // initialRouteName="index"
       screenOptions={{
         headerShown: false,
       }}

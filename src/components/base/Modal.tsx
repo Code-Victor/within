@@ -8,11 +8,25 @@ import {
   Sheet,
   Unspaced,
 } from "tamagui";
-import { Button, Icon } from ".";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
+
+import { BackHandler } from "react-native";
 import { SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 export function Modal({ children, ...dialogProps }: DialogProps) {
+  React.useEffect(() => {
+    if (!dialogProps.open) return;
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        dialogProps.onOpenChange?.(false);
+        return true;
+      }
+    );
+    return () => backHandler.remove();
+  }, [dialogProps.open]);
   return (
     <Dialog modal {...dialogProps}>
       {children}
@@ -84,5 +98,5 @@ Modal.CancelButton = () => {
         />
       </Dialog.Close>
     </Unspaced>
-  )
+  );
 };
