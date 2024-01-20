@@ -1,3 +1,4 @@
+import { authRouter, spaceRouter } from "@/api/hooks";
 import { Button, Text, Icon } from "@/components/base";
 import {
   StackHeader,
@@ -25,52 +26,67 @@ export default function Details() {
     id: string;
     name: string;
   }>();
-  const isAdmin = true;
+  const { data: user } = authRouter.user.useQuery();
+  const { data: space, isLoading } = spaceRouter.get.useQuery({
+    variables: {
+      spaceId: id,
+    },
+  });
+  const isAdmin = user?.id === space?.owner?.id;
   console.log({ id });
+  console.log({ space });
   return (
     <YStack f={1}>
       <StackHeader name={name} backButton />
-      <ScrollView bg="$primary.2">
-        <YStack f={1} pt="$4.5" gap="$6">
-          <View px="$4">
-            <Image
-              contentFit="cover"
-              style={{
-                aspectRatio: 3.24,
-                borderRadius: 10,
-                width: "100%",
-              }}
-              source={{
-                uri: "https://images.unsplash.com/photo-1692076442412-98dd90bb468d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              }}
-            />
-          </View>
-          <YStack gap="$2" px="$4">
-            <XStack jc="space-between" ai="center">
-              <Text type="h3">{name}</Text>
-              <Button size="$3" icon={<Icon name="Settings" />} type="ghost" />
-            </XStack>
-            <Text>{"Description will be typed here"}</Text>
-            <XStack gap="$2" ai="center">
-              <ListItem
-                size={"$2"}
-                f={1}
-                ai="flex-end"
-                icon={<Icon name="User" height={20} width={20} />}
-                title="Crust Manner"
+      {isLoading ? null : (
+        <ScrollView bg="$primary.2">
+          <YStack f={1} pt="$4.5" gap="$4">
+            <View px="$4">
+              <Image
+                contentFit="cover"
+                style={{
+                  aspectRatio: 3.24,
+                  borderRadius: 10,
+                  width: "100%",
+                }}
+                source={{
+                  uri: space?.profileImage,
+                }}
               />
-              <ListItem
-                size={"$2"}
-                f={1}
-                icon={<Icon name="Users" height={24} width={24} />}
-                title="200 members"
-              />
-            </XStack>
+            </View>
+            <YStack gap="$2" px="$4">
+              <XStack jc="space-between" ai="center">
+                <Text type="h3">{name}</Text>
+                <Button
+                  size="$3"
+                  icon={<Icon name="Settings" />}
+                  type="ghost"
+                />
+              </XStack>
+              <Text fontSize="$2">{space?.description}</Text>
+              <XStack gap="$2" ai="center">
+                <ListItem
+                  size={"$2"}
+                  f={1}
+                  ai="flex-end"
+                  icon={<Icon name="User" height={20} width={20} />}
+                  title={space?.owner.fullName}
+                />
+                <ListItem
+                  size={"$2"}
+                  f={1}
+                  icon={<Icon name="Users" height={24} width={24} />}
+                  title={`${space?.members?.length} ${
+                    space?.members?.length > 1 ? "members" : "member"
+                  }`}
+                />
+              </XStack>
+            </YStack>
+            <Annoucement spaceId={id} />
+            <Tabs />
           </YStack>
-          <Annoucement />
-          <Tabs />
-        </YStack>
-      </ScrollView>
+        </ScrollView>
+      )}
     </YStack>
   );
 }

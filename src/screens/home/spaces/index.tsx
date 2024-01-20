@@ -1,34 +1,24 @@
-import { Space } from "@/components/inc";
+import { DrawerHeader, Space } from "@/components/inc";
 import { FlatList } from "react-native";
 import { YStack, getTokens } from "tamagui";
-
+import { spaceRouter, authRouter } from "@/api/hooks";
 const Spaces = () => {
-  const mySpaces = [
-    {
-      id: "1",
-      imageUrl: "",
-      name: "Minervas",
-      createdBy: "you",
-    },
-    {
-      id: "2",
-      imageUrl: "",
-      name: "NAMS OAU",
-      createdBy: "you",
-    },
-    {
-      id: "3",
-      imageUrl: "",
-      name: "Aquilas",
-      createdBy: "you",
-    },
-  ];
+  const { data: user } = authRouter.user.useQuery();
+  const { data: spaces } = spaceRouter.getAllSpaces.useQuery();
 
   return (
     <YStack>
+      <DrawerHeader name="Spaces" />
       <FlatList
-        data={mySpaces}
-        renderItem={({ item }) => <Space {...item} />}
+        data={[...(spaces?.mySpaces ?? []), ...(spaces?.memberSpaces ?? [])]}
+        renderItem={({ item }) => (
+          <Space
+            id={item.id}
+            name={item.name}
+            imageUrl={item.profileImage}
+            createdBy={user?.id === item.owner.id ? "you" : item.owner.fullName}
+          />
+        )}
         showsHorizontalScrollIndicator={false}
         // ItemSeparatorComponent={() => <View h="$1" bg={getTokens().color["$primary.1"].val}></View>}
         numColumns={2}
