@@ -78,7 +78,7 @@ export default function Details() {
                 />
               </XStack>
               {/* <Text fontSize="$2">{space?.description}</Text> */}
-              <XStack gap="$0" ai="center" gap="$2">
+              <XStack gap="$0" ai="center">
                 <Text type="body2" color="$dark.6">
                   {space?.owner.fullName},
                 </Text>

@@ -1,65 +1,43 @@
-import { Button, Icon } from "@/components/base";
+import { scheduleRouter } from "@/api/hooks";
+import { Button, Icon, Text } from "@/components/base";
 import { ScheduleCard, StackHeader } from "@/components/inc";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { FlatList } from "react-native";
 import { View, YStack } from "tamagui";
 
 export default function Schedules() {
-  const schedules = [
-    {
-      title: "Match Against Geology",
-      date: "Jan. 11th 2023",
-      time: "9:00 AM",
-      timeout: "30 mins",
+  const { id } = useLocalSearchParams<{ id: string }>();
+
+  const { data: schedules, isLoading } = scheduleRouter.get.useQuery({
+    variables: {
+      spaceId: id,
     },
-    {
-      title: "Match Against Geology",
-      date: "Jan. 11th 2023",
-      time: "9:00 AM",
-      timeout: "30 mins",
-    },
-    {
-      title: "Match Against Geology",
-      date: "Jan. 11th 2023",
-      time: "9:00 AM",
-      timeout: "30 mins",
-    },
-    {
-      title: "Match Against Geology",
-      date: "Jan. 11th 2023",
-      time: "9:00 AM",
-      timeout: "30 mins",
-    },
-    {
-      title: "Match Against Geology",
-      date: "Jan. 11th 2023",
-      time: "9:00 AM",
-      timeout: "30 mins",
-    },
-    {
-      title: "Match Against Geology",
-      date: "Jan. 11th 2023",
-      time: "9:00 AM",
-      timeout: "30 mins",
-    },
-  ];
+  });
 
   return (
     <YStack f={1}>
       <StackHeader name="Schedules" backButton={true} />
       <View f={1} py="$4" bg="$primary.1">
-        <FlatList
-          data={schedules}
-          renderItem={({ item }) => <ScheduleCard {...item} />}
-          style={{
-            backgroundColor: "white",
-            marginHorizontal: 16,
-            borderRadius: 10,
-          }}
-          ItemSeparatorComponent={() => <View h={10}></View>}
-          contentContainerStyle={{ padding: 24 }}
-          showsVerticalScrollIndicator={false}
-        />
+        {isLoading ? (
+          <YStack mx="$4" bg="white" br={10} ai="center" jc="center">
+            <Text type="h4">Loading...</Text>
+          </YStack>
+        ) : (
+          <FlatList
+            data={schedules ?? []}
+            renderItem={({ item }) => (
+              <ScheduleCard title={item.title} date={item.startDate} />
+            )}
+            style={{
+              backgroundColor: "white",
+              marginHorizontal: 16,
+              borderRadius: 10,
+            }}
+            ItemSeparatorComponent={() => <View h={10}></View>}
+            contentContainerStyle={{ padding: 24 }}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
         <Link href="/spaces/123/schedules/create" asChild>
           <Button
             circular
