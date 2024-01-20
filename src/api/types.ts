@@ -14,11 +14,12 @@ export interface User {
   department?: string;
   level?: string;
 }
-export interface GetSpacesResponse {
-  mySpaces: Space[];
-  memberSpaces: Space[];
+export interface GetAllSpacesResponse {
+  spaces: { mySpaces: Space[]; memberSpaces: Space[] };
 }
-
+export interface GetSpaceResponse {
+  space: Space;
+}
 export interface Space {
   id: string;
   name: string;

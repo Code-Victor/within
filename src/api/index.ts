@@ -1,7 +1,8 @@
 import axios from "axios";
 import {
   AuthResponse,
-  GetSpacesResponse as GetAllSpacesResponse,
+  GetAllSpacesResponse as GetAllSpacesResponse,
+  GetSpaceResponse,
   GetUserResponse,
   Space,
   User,
@@ -83,20 +84,20 @@ export async function getUser() {
 type CreateSpaceData = {
   name: string;
   profileImage: string;
-  description: string;
+  description?: string;
 };
 export async function createSpace(data: CreateSpaceData) {
   const eject = tokenInterceptor();
-  const response = await api.post("/spaces/space/create", data);
+  const response = await api.post("/spaces/space/", data);
   eject();
   return response.data;
 }
 
 export async function getAllSpaces() {
   const eject = tokenInterceptor();
-  const response = await api.get<GetAllSpacesResponse>("/spaces/space");
+  const response = await api.get<GetAllSpacesResponse>("/spaces");
   eject();
-  return response.data;
+  return response.data.spaces;
 }
 
 export async function joinSpace(data: { spaceId: string }) {
@@ -115,7 +116,30 @@ export async function leaveSpaces(data: { spaceId: string }) {
 
 export async function getSpace({ spaceId }: { spaceId: string }) {
   const eject = tokenInterceptor();
-  const response = await api.get<Space>(`/spaces/space/${spaceId}`);
+  const response = await api.get<GetSpaceResponse>(`/spaces/space/${spaceId}`);
+  eject();
+  return response.data.space;
+}
+
+export async function createAnnoucement({
+  spaceId,
+  ...data
+}: {
+  spaceId: string;
+  title: string;
+  description?: string;
+}) {
+  const eject = tokenInterceptor();
+  const response = await api.post(
+    `/spaces/space/${spaceId}/announcements`,
+    data
+  );
+  eject();
+  return response.data;
+}
+export async function getAnnouncements({ spaceId }: { spaceId: string }) {
+  const eject = tokenInterceptor();
+  const response = await api.get(`/spaces/space/${spaceId}/announcements`);
   eject();
   return response.data;
 }
