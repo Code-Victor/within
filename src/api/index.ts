@@ -233,3 +233,34 @@ export async function makePayment({
   eject();
   return response.data;
 }
+
+export async function getSchedules({ spaceId }: { spaceId: string }) {
+  const eject = tokenInterceptor();
+  const response = await api.post<{
+    schedules: {
+      title: string;
+      startDate: string;
+      endDate: string;
+      space: string;
+      createdAt: string;
+      updatedAt: string;
+      id: string;
+    }[];
+  }>(`/spaces/space/${spaceId}/schedules`);
+  eject();
+  return response.data.schedules;
+}
+export async function createSchedules({
+  spaceId,
+  ...data
+}: {
+  title: string;
+  startDate: string;
+  endDate: string;
+  spaceId: string;
+}) {
+  const eject = tokenInterceptor();
+  const response = await api.post(`/spaces/space/${spaceId}/schedules`);
+  eject();
+  return response.data;
+}

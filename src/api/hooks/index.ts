@@ -2,6 +2,8 @@ import { router } from "react-query-kit";
 import {
   createAnnoucement,
   createPayment,
+  createSchedules,
+  getSchedules,
   createSpace,
   getAllSpaces,
   getAnnouncements,
@@ -56,6 +58,14 @@ export const announcementRouter = router("annoucements", {
   }),
   get: router.query({
     fetcher: getAnnouncements,
+  }),
+});
+export const scheduleRouter = router("schedules", {
+  create: router.mutation({
+    mutationFn: createSchedules,
+  }),
+  get: router.query({
+    fetcher: getSchedules,
   }),
 });
 export const paymentRouter = router("payment", {
