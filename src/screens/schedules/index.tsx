@@ -49,7 +49,7 @@ export default function Schedules() {
   return (
     <YStack f={1}>
       <StackHeader name="Schedules" backButton={true} />
-      <View f={1} py="$4">
+      <View f={1} py="$4" bg="$primary.1">
         <FlatList
         data={schedules}
         renderItem={({ item }) => <ScheduleCard {...item} />}
