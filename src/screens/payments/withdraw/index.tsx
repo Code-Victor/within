@@ -11,7 +11,7 @@ const Withdraw = () => {
       <StackHeader name="Withdraw" backButton={true} />
       <YStack p="$4" gap="$4">
         <Input label="Account Number" />
-        <SelectBank label="Bank Name" />
+        <SelectBank />
         <View>
           <Text type="body2">Account Name:</Text>
           <Text type="h4" color="$primary">Apkantaku Dunsimi</Text>
