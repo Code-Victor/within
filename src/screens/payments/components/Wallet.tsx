@@ -1,63 +1,26 @@
 import { paymentRouter } from "@/api/hooks";
 import { Button, Icon, Text } from "@/components/base";
 import { TransactionCard } from "@/components/inc";
+import { monify } from "@/utils";
 import { Link, useLocalSearchParams } from "expo-router";
 import { FlatList } from "react-native";
 import { ScrollView, View, XStack, YStack } from "tamagui";
 
 const Wallet = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { data: wallet } = paymentRouter.wallet.useQuery({
+  const { data: wallet, isLoading: isWalletLoading } =
+    paymentRouter.wallet.useQuery({
+      variables: {
+        spaceId: id,
+      },
+    });
+  const { data: transactions } = paymentRouter.walletTransactions.useQuery({
     variables: {
       spaceId: id,
     },
   });
 
-  console.log({ wallet });
-  const transactions = [
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "jj",
-    },
-  ];
+  console.log(JSON.stringify({ transactions }, null, 2));
 
   return (
     <View f={1}>
@@ -68,7 +31,11 @@ const Wallet = () => {
             <XStack ai="center" jc="space-between">
               <YStack>
                 <Text type="body2">Available Balance</Text>
-                <Text type="h4">$1200</Text>
+                <Text type="h4">
+                  {isWalletLoading
+                    ? "XX.XX"
+                    : monify(wallet?.available_balance ?? 0)}
+                </Text>
               </YStack>
               <Link href="/spaces/123/withdraw" asChild>
                 <Button type="primary" circular size="$5" borderRadius={99}>
@@ -82,8 +49,12 @@ const Wallet = () => {
             <FlatList
               data={transactions}
               ItemSeparatorComponent={() => <View h="$0.5"></View>}
-              contentContainerStyle={{}}
-              renderItem={({ item }) => <TransactionCard {...item} />}
+              contentContainerStyle={{
+                flexGrow: 1,
+              }}
+              renderItem={({ item }) => (
+                <TransactionCard name={item.reason} amount={item.amount} />
+              )}
               scrollEnabled={false}
             />
           </YStack>

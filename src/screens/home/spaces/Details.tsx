@@ -23,6 +23,7 @@ import {
 import * as Clipboard from "expo-clipboard";
 import { Link } from "expo-router";
 import { monify, timeSince } from "@/utils";
+import { isLoading } from "expo-font";
 
 export default function Details() {
   const { id, name } = useLocalSearchParams<{
@@ -85,7 +86,7 @@ export default function Details() {
                   f={1}
                   icon={<Icon name="Users" height={24} width={24} />}
                   title={`${space?.members?.length} ${
-                    space?.members?.length > 1 ? "members" : "member"
+                    (space?.members?.length ?? 0) > 1 ? "members" : "member"
                   }`}
                 />
               </XStack>
@@ -191,11 +192,18 @@ function PaymentTab({
   isAdmin: boolean;
   spaceId: string;
 }) {
-  const { data: payments } = paymentRouter.get.useQuery({
+  const { data: payments, isLoading } = paymentRouter.get.useQuery({
     variables: {
       spaceId,
     },
   });
+  if (isLoading) {
+    return (
+      <YStack h="$10" ai="center" jc="center">
+        <Text type="h4">Loading...</Text>
+      </YStack>
+    );
+  }
 
   return (
     <YStack mx="$4" gap="$2" pb="$6">
@@ -264,6 +272,11 @@ function PaymentTab({
             </XStack>
           );
         })}
+        {payments?.length === 0 && (
+          <YStack h="$10" ai="center" jc="center">
+            <Text type="h4">No Payments yet...</Text>
+          </YStack>
+        )}
       </YStack>
     </YStack>
   );
