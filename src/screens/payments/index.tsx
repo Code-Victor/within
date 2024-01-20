@@ -16,14 +16,9 @@ const Payment = () => {
   return (
     <YStack f={1} bg="$primary.1">
       <StackHeader name="Payments" backButton={true} />
-      { admin && <XStack p="$4" jc="space-between">
-        <XStack gap="$2">
-          <Button onPress={() => setTab("wallet")} type="filled" color={tab === "wallet" ? "white" : "$dark.7"} bg={tab === "wallet" ? "$dark" : "transparent"}>Wallet</Button>
-          <Button onPress={() => setTab("payments")} type="filled" color={tab === "payments" ? "white" : "$dark.7"} bg={tab === "payments" ? "$dark" : "transparent"}>Payments</Button>
-        </XStack>
-        <Button circular>
-          <Icon name="AddLight" />
-        </Button>
+      { admin && <XStack gap="$2" p="$4">
+        <Button onPress={() => setTab("wallet")} type="filled" color={tab === "wallet" ? "white" : "$dark.7"} bg={tab === "wallet" ? "$dark" : "transparent"}>Wallet</Button>
+        <Button onPress={() => setTab("payments")} type="filled" color={tab === "payments" ? "white" : "$dark.7"} bg={tab === "payments" ? "$dark" : "transparent"}>Payments</Button>
       </XStack> }
       { tab === "payments" ? <Payments /> : <Wallet />}
     </YStack>

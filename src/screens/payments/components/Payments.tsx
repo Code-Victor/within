@@ -1,3 +1,4 @@
+import { Button, Icon } from '@/components/base'
 import PaymentCard from '@/components/inc/PaymentCard'
 import React from 'react'
 import { FlatList } from 'react-native'
@@ -68,9 +69,14 @@ const Payments = () => {
       data={payments}
       renderItem={({ item }) => <PaymentCard {...item} />}
       style={{backgroundColor: "white", marginHorizontal:16, borderRadius: 10}}
-      ItemSeparatorComponent={() => <View w="100%" h={1} bg="$dark.3" mx="$4"></View>}
+      ItemSeparatorComponent={() => <View px="$4">
+          <View w="100%" h={1} bg="$dark.3"></View>
+        </View> }
       showsVerticalScrollIndicator={false}
       />
+      <Button circular size="$6" position="absolute" right="$5" bottom={60} borderRadius={99} elevation={0.5}>
+        <Icon name="AddLight" width={35} height={35} />
+      </Button>
     </View>
   )
 }
