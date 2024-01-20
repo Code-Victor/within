@@ -57,7 +57,6 @@ export function Annoucement({
     return (
       <YStack
         br={10}
-        borderWidth={1}
         bg="white"
         borderColor="#F3F2F3"
         px="$3"
