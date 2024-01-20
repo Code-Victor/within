@@ -1,15 +1,20 @@
 import { spaceRouter } from "@/api/hooks";
 import { Button, ControlledInput, Icon, Input, Text } from "@/components/base";
-import { useQueryClient } from "@tanstack/react-query";
+import { dataTagSymbol, useQueryClient } from "@tanstack/react-query";
 import { Image } from "expo-image";
 import { Link, useNavigation, useRouter } from "expo-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { View, YStack } from "tamagui";
+import { View, XStack, YStack } from "tamagui";
 import { z } from "zod";
+import { ToastAndroid } from "react-native";
+import * as Clipboard from "expo-clipboard";
 
 type CreateType = {
-  closeModal: any;
+  closeModal: () => void;
+  spaceId: string;
+  spaceCode: string;
+  name: string;
 };
 
 const createSpaceSchema = z.object({
@@ -20,7 +25,7 @@ type CreateSpaceSchema = z.infer<typeof createSpaceSchema>;
 
 const Create = (props: CreateType) => {
   const { control, handleSubmit } = useForm<CreateSpaceSchema>();
-  const { mutateAsync, isSuccess, isPending } =
+  const { mutateAsync, isSuccess, isPending, data } =
     spaceRouter.create.useMutation();
   const queryClient = useQueryClient();
   const onSubmit = (data: CreateSpaceSchema) => {
@@ -33,7 +38,7 @@ const Create = (props: CreateType) => {
     });
   };
   if (isSuccess) {
-    return <Successful closeModal={props.closeModal} />;
+    return <Successful {...data} closeModal={props.closeModal} />;
   }
   return (
     <YStack p="$4" pb="$8" h="90%" bg="$primary.1" jc="space-between">
@@ -71,7 +76,13 @@ const Successful = (props: CreateType) => {
   const router = useRouter();
 
   const goToSpace = () => {
-    router.push("/spaces/1234567");
+    router.push({
+      pathname: "/(app)/spaces/[id]/",
+      params: {
+        id: props.spaceId,
+        name: props.name,
+      },
+    });
     props.closeModal();
   };
 
@@ -87,7 +98,7 @@ const Successful = (props: CreateType) => {
           </Text>
         </YStack>
         <Image
-          source={require("../../../assets/images/complete.png")}
+          source={require("@/assets/images/complete.png")}
           style={{
             width: "100%",
             aspectRatio: 1.35,
@@ -104,10 +115,29 @@ const Successful = (props: CreateType) => {
           borderRadius="$4"
         >
           <Text type="body1">Here's your space code</Text>
-          <Input value={"121212"} />
-          <Button type="outline" size="$5" mt="$2">
-            Copy space code
-          </Button>
+          <XStack
+            py="$3"
+            px="$2"
+            jc="space-between"
+            ai="center"
+            borderWidth={1}
+            borderColor="$dark.3"
+            br={10}
+          >
+            <Text>{props.spaceCode}</Text>
+            <Button
+              size="$3"
+              icon={<Icon name="Copy" height={24} width={24} />}
+              type="ghost"
+              onPress={async () => {
+                await Clipboard.setStringAsync(props.spaceCode);
+                ToastAndroid.show(
+                  "Space Code copied to clipboard",
+                  ToastAndroid.SHORT
+                );
+              }}
+            />
+          </XStack>
         </YStack>
       </YStack>
       <Button size="$5" onPress={() => goToSpace()}>

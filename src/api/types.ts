@@ -29,3 +29,15 @@ export interface Space {
   owner: User;
   members: User[];
 }
+export interface GetAnnouncementResponse {
+  announcements: Announcement[];
+}
+
+export interface Announcement {
+  space: string;
+  description: string;
+  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  id: string;
+}
