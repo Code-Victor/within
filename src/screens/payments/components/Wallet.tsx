@@ -1,55 +1,63 @@
-import { Button, Icon, Text } from '@/components/base'
-import { TransactionCard } from '@/components/inc'
-import { Link } from 'expo-router'
-import { FlatList } from 'react-native'
-import { ScrollView, View, XStack, YStack } from 'tamagui'
+import { paymentRouter } from "@/api/hooks";
+import { Button, Icon, Text } from "@/components/base";
+import { TransactionCard } from "@/components/inc";
+import { Link, useLocalSearchParams } from "expo-router";
+import { FlatList } from "react-native";
+import { ScrollView, View, XStack, YStack } from "tamagui";
 
 const Wallet = () => {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { data: wallet } = paymentRouter.wallet.useQuery({
+    variables: {
+      spaceId: id,
+    },
+  });
 
+  console.log({ wallet });
   const transactions = [
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: ""
+      name: "",
     },
     {
-      name: "jj"
+      name: "jj",
     },
-  ]
+  ];
 
   return (
     <View f={1}>
@@ -72,17 +80,17 @@ const Wallet = () => {
           <YStack gap="$4">
             <Text type="h4">Transaction History</Text>
             <FlatList
-            data={transactions}
-            ItemSeparatorComponent={() => <View h="$0.5"></View>}
-            contentContainerStyle={{}}
-            renderItem={({ item }) => <TransactionCard {...item} />}
-            scrollEnabled={false}
+              data={transactions}
+              ItemSeparatorComponent={() => <View h="$0.5"></View>}
+              contentContainerStyle={{}}
+              renderItem={({ item }) => <TransactionCard {...item} />}
+              scrollEnabled={false}
             />
           </YStack>
         </YStack>
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default Wallet
+export default Wallet;

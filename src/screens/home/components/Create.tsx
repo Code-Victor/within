@@ -38,6 +38,7 @@ const Create = (props: CreateType) => {
     });
   };
   if (isSuccess) {
+    console.log("success", data);
     return <Successful {...data} closeModal={props.closeModal} />;
   }
   return (

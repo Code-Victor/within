@@ -91,12 +91,14 @@ type CreateSpaceData = {
 export async function createSpace(data: CreateSpaceData) {
   const eject = tokenInterceptor();
   const response = await api.post<{
-    spaceCode: string;
-    spaceId: string;
-    name: string;
+    space: {
+      spaceCode: string;
+      spaceId: string;
+      name: string;
+    };
   }>("/spaces/space/", data);
   eject();
-  return response.data;
+  return response.data.space;
 }
 
 export async function getAllSpaces() {
@@ -187,6 +189,15 @@ export async function getWallet({ spaceId }: { spaceId: string }) {
   return response.data.payments;
 }
 
+export async function walletTransactions({ spaceId }: { spaceId: string }) {
+  const eject = tokenInterceptor();
+  const response = await api.get<GetPaymentResponse>(
+    `/spaces/space/${spaceId}/payment/wallet/transactions`
+  );
+  eject();
+  return response.data;
+}
+
 export async function makePayment({
   spaceId,
   paymentId,
@@ -195,9 +206,13 @@ export async function makePayment({
   paymentId: string;
 }) {
   const eject = tokenInterceptor();
-  const response = await api.post<GetPaymentResponse>(
-    `/spaces/space/${spaceId}/payment/${paymentId}/pay`
-  );
+  const response = await api.post<{
+    paymentResponse: {
+      paymentLink: string;
+      name: string;
+      amount: number;
+    };
+  }>(`/spaces/space/${spaceId}/payment/${paymentId}/pay`);
   eject();
   return response.data;
 }

@@ -26,10 +26,21 @@ const Payments = ({ isAdmin }: { isAdmin: boolean }) => {
             bg="white"
             p="$4"
             borderRadius="$4"
-            onPress={() => router.push("/spaces/1212/payments/1234")}
+            onPress={() =>
+              router.push({
+                pathname: "/(app)/spaces/[id]/payments/[paymentId]",
+                params: {
+                  id,
+                  paymentId: item.id,
+                  paymentName: item.name,
+                },
+              })
+            }
           >
-            <XStack gap="$2" ai="center">
-              <Icon name="Dollar" height={28} width={28} color="#303437" />
+            <XStack gap="$4" ai="center">
+              <View bg="$dark.3" p="$2" br={4}>
+                <Icon name="Dollar" height={28} width={28} color="#303437" />
+              </View>
               <YStack>
                 <Text type="body1" fontWeight="$4">
                   {item.name}
@@ -44,7 +55,6 @@ const Payments = ({ isAdmin }: { isAdmin: boolean }) => {
         )}
         style={{
           backgroundColor: "white",
-          marginHorizontal: 16,
           borderRadius: 10,
         }}
         ItemSeparatorComponent={() => (

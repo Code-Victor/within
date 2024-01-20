@@ -1,4 +1,4 @@
-import { authRouter, spaceRouter } from "@/api/hooks";
+import { authRouter, paymentRouter, spaceRouter } from "@/api/hooks";
 import { Button, Text, Icon } from "@/components/base";
 import {
   StackHeader,
@@ -8,7 +8,7 @@ import {
   ScheduleCard,
 } from "@/components/inc";
 import { Image } from "expo-image";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { Animated, FlatList, ToastAndroid } from "react-native";
 import {
@@ -22,6 +22,7 @@ import {
 } from "tamagui";
 import * as Clipboard from "expo-clipboard";
 import { Link } from "expo-router";
+import { monify, timeSince } from "@/utils";
 
 export default function Details() {
   const { id, name } = useLocalSearchParams<{
@@ -190,6 +191,12 @@ function PaymentTab({
   isAdmin: boolean;
   spaceId: string;
 }) {
+  const { data: payments } = paymentRouter.get.useQuery({
+    variables: {
+      spaceId,
+    },
+  });
+
   return (
     <YStack mx="$4" gap="$2" pb="$6">
       <XStack bg="white" p="$3" ai="center" jc="space-between" br={10}>
@@ -220,75 +227,43 @@ function PaymentTab({
         borderWidth={1}
         separator={<View h={0.5} bg="$dark.4" />}
       >
-        <ListItem
-          icon={
-            <Icon
-              name="Dollar"
-              color={getTokens().color["$dark.5"].val}
-              height={20}
-              width={20}
-            />
-          }
-          p="$3"
-          ai="center"
-          jc="space-between"
-        >
-          <XStack f={1}>
-            <ListItemTitle>Payment</ListItemTitle>
-            <XStack ai="baseline" gap="$2">
-              <Text fontSize="$3" fontWeight="500">
-                $120
-              </Text>
-              <Text fontSize="$2">Status</Text>
+        {payments?.slice(0, 5).map((p) => {
+          return (
+            <XStack
+              key={p.id}
+              jc="space-between"
+              ai="center"
+              bg="white"
+              p="$4"
+              borderRadius="$4"
+              onPress={() =>
+                router.push({
+                  pathname: "/(app)/spaces/[id]/payments/[paymentId]",
+                  params: {
+                    id: spaceId,
+                    paymentId: p.id,
+                    paymentName: p.name,
+                  },
+                })
+              }
+            >
+              <XStack gap="$4" ai="center">
+                <View bg="$dark.3" p="$2" br={4}>
+                  <Icon name="Dollar" height={28} width={28} color="#303437" />
+                </View>
+                <YStack>
+                  <Text type="body1" fontWeight="$4">
+                    {p.name}
+                  </Text>
+                  <Text type="body2">{timeSince(new Date(p.createdAt))}</Text>
+                </YStack>
+              </XStack>
+              <YStack ai="flex-end">
+                <Text type="body1">{monify(p.amount)}</Text>
+              </YStack>
             </XStack>
-          </XStack>
-        </ListItem>
-        <ListItem
-          icon={
-            <Icon
-              name="Dollar"
-              color={getTokens().color["$dark.5"].val}
-              height={20}
-              width={20}
-            />
-          }
-          p="$3"
-          ai="center"
-          jc="space-between"
-        >
-          <XStack f={1}>
-            <ListItemTitle>Payment</ListItemTitle>
-            <XStack ai="baseline" gap="$2">
-              <Text fontSize="$3" fontWeight="500">
-                $120
-              </Text>
-              <Text fontSize="$2">Status</Text>
-            </XStack>
-          </XStack>
-        </ListItem>
-        <ListItem
-          icon={
-            <Icon
-              name="Dollar"
-              color={getTokens().color["$dark.5"].val}
-              height={20}
-              width={20}
-            />
-          }
-          p="$3"
-          ai="center"
-          jc="space-between"
-        >
-          <XStack f={1}>
-            <ListItemTitle>Payment</ListItemTitle>
-            <XStack ai="baseline" gap="$2">
-              <Text fontSize="$3" fontWeight="500">
-                $120
-              </Text>
-              <Text fontSize="$2">Status</Text>
-            </XStack>
-          </XStack>
-        </ListItem>
+          );
+        })}
       </YStack>
     </YStack>
   );

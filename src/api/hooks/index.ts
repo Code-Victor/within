@@ -8,11 +8,13 @@ import {
   getPayment,
   getSpace,
   getUser,
+  getWallet,
   joinSpace,
   leaveSpaces as leaveSpace,
   login,
   makePayment,
   signup,
+  walletTransactions,
 } from "..";
 
 export const authRouter = router("auth", {
@@ -40,9 +42,11 @@ export const spaceRouter = router("space", {
   }),
   getAllSpaces: router.query({
     fetcher: getAllSpaces,
+    refetchInterval: 10000,
   }),
   get: router.query({
     fetcher: getSpace,
+    refetchInterval: 10000,
   }),
 });
 
@@ -63,6 +67,13 @@ export const paymentRouter = router("payment", {
   }),
   makePayment: router.mutation({
     mutationFn: makePayment,
+  }),
+  wallet: router.query({
+    fetcher: getWallet,
+    refetchInterval: 10000,
+  }),
+  walletTransactions: router.query({
+    fetcher: walletTransactions,
   }),
 });
 /**
