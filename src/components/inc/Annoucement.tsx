@@ -12,8 +12,11 @@ import { Link, router } from "expo-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { announcementRouter } from "@/api/hooks";
+import { announcementRouter, authRouter } from "@/api/hooks";
 import { Image } from "expo-image";
+import { useQueryClient } from "@tanstack/react-query";
+import { Announcement } from "@/api/types";
+import { timeSince } from "@/utils";
 const createAnnoucement = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().optional(),
@@ -22,14 +25,26 @@ type CreateAnnouncement = z.infer<typeof createAnnoucement>;
 export function Annoucement({ spaceId }: { spaceId: string }) {
   const { control, handleSubmit } = useForm<CreateAnnouncement>();
   const [modalOpen, setModalOpen] = React.useState(false);
-  const { mutateAsync, isPending, isSuccess } =
+  const { mutateAsync, isPending, isSuccess, reset } =
     announcementRouter.create.useMutation();
+  const { data: announcement } = announcementRouter.get.useQuery({
+    variables: {
+      spaceId,
+    },
+  });
+  const queryClient = useQueryClient();
 
   function onSubmit(data: CreateAnnouncement) {
     mutateAsync({
       spaceId,
       title: data.name,
       description: data?.description,
+    }).then(() => {
+      queryClient.invalidateQueries(
+        announcementRouter.get.getOptions({
+          spaceId,
+        })
+      );
     });
   }
   return (
@@ -60,7 +75,14 @@ export function Annoucement({ spaceId }: { spaceId: string }) {
                 <Text type="h4" ta="center">
                   Successful
                 </Text>
-                <Button onPress={() => setModalOpen(false)}>continue</Button>
+                <Button
+                  onPress={() => {
+                    setModalOpen(false);
+                    reset();
+                  }}
+                >
+                  continue
+                </Button>
               </>
             ) : (
               <>
@@ -104,42 +126,23 @@ export function Annoucement({ spaceId }: { spaceId: string }) {
         px="$3"
         separator={<View h={0.5} bg="$dark.4" />}
       >
-        <AnnoucementTile
-          name="Oluserti"
-          message="Your space program has been created"
-        />
-        <AnnoucementTile
-          name="Oluserti"
-          message="Your space program has been created"
-        />
-        <AnnoucementTile
-          name="Oluserti"
-          message="Your space program has been created"
-        />
+        {announcement?.slice(0, 5).map((a) => {
+          return <AnnoucementTile {...a} />;
+        })}
       </YStack>
     </YStack>
   );
 }
 
-export function AnnoucementTile({
-  id,
-  name,
-  date,
-  message,
-}: {
-  id: string;
-  name: string;
-  date: Date;
-  message: string;
-}) {
+export function AnnoucementTile(props: Announcement) {
   return (
     <YStack py="$3" gap="$2">
-      <Text type="body2">{message}</Text>
-      <XStack gap="$2" ai="baseline">
-        <Text type="body1" color="$primary">
-          {name}
+      <Text type="body1">{props.title}</Text>
+      <XStack gap="$2" ai="baseline" jc="space-between">
+        <Text type="body2" color="$dark.5">
+          {props.description}
         </Text>
-        <Text fontSize={12}>2 mins ago</Text>
+        <Text fontSize={12}>{timeSince(new Date(props.createdAt))}</Text>
       </XStack>
     </YStack>
   );

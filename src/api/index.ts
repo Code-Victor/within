@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   AuthResponse,
   GetAllSpacesResponse as GetAllSpacesResponse,
+  GetAnnouncementResponse,
   GetSpaceResponse,
   GetUserResponse,
   Space,
@@ -88,7 +89,11 @@ type CreateSpaceData = {
 };
 export async function createSpace(data: CreateSpaceData) {
   const eject = tokenInterceptor();
-  const response = await api.post("/spaces/space/", data);
+  const response = await api.post<{
+    spaceCode: string;
+    spaceId: string;
+    name: string;
+  }>("/spaces/space/", data);
   eject();
   return response.data;
 }
@@ -100,7 +105,7 @@ export async function getAllSpaces() {
   return response.data.spaces;
 }
 
-export async function joinSpace(data: { spaceId: string }) {
+export async function joinSpace(data: { spaceCodeInput: string }) {
   const eject = tokenInterceptor();
   const response = await api.post("/spaces/space/join", data);
   eject();
@@ -139,7 +144,9 @@ export async function createAnnoucement({
 }
 export async function getAnnouncements({ spaceId }: { spaceId: string }) {
   const eject = tokenInterceptor();
-  const response = await api.get(`/spaces/space/${spaceId}/announcements`);
+  const response = await api.get<GetAnnouncementResponse>(
+    `/spaces/space/${spaceId}/announcements`
+  );
   eject();
-  return response.data;
+  return response.data.announcements;
 }
