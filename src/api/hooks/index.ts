@@ -1,7 +1,9 @@
 import { router } from "react-query-kit";
 import {
+  createAnnoucement,
   createSpace,
   getAllSpaces,
+  getAnnouncements,
   getSpace,
   getUser,
   joinSpace,
@@ -38,6 +40,15 @@ export const spaceRouter = router("space", {
   }),
   get: router.query({
     fetcher: getSpace,
+  }),
+});
+
+export const announcementRouter = router("annoucements", {
+  create: router.mutation({
+    mutationFn: createAnnoucement,
+  }),
+  get: router.query({
+    fetcher: getAnnouncements,
   }),
 });
 /**

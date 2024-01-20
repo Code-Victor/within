@@ -90,7 +90,7 @@ Modal.CancelButton = () => {
           position="absolute"
           top="$3"
           zIndex={10000}
-          right="$3"
+          left={"$3"}
           size="$4"
           bg="$primary.3"
           circular

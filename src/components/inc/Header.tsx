@@ -3,8 +3,9 @@ import { Href, useNavigation, useRouter } from "expo-router";
 import { useWindowDimensions } from "react-native";
 import { View, XStack } from "tamagui";
 
-export const DrawerHeader = () => {
+export const DrawerHeader = ({ name }: { name?: string }) => {
   const navigation = useNavigation();
+  const { width } = useWindowDimensions();
   return (
     <XStack
       px={"$4"}
@@ -35,7 +36,15 @@ export const DrawerHeader = () => {
           }}
         />
       </View>
-      <Icon name="Logo" aria-label="Within Logo" />
+      {name ? (
+        <View width={width * 0.65}>
+          <Text fontWeight="700" fontSize="$5" ta="center" numberOfLines={1}>
+            {name}
+          </Text>
+        </View>
+      ) : (
+        <Icon name="Logo" aria-label="Within Logo" />
+      )}
       <View
         position="absolute"
         right={0}
@@ -45,13 +54,15 @@ export const DrawerHeader = () => {
         jc="center"
         mr={"$4"}
       >
-        <Button
-          size={"$4"}
-          zIndex={1}
-          type="ghost"
-          circular
-          icon={<Icon name="Notification" height={24} width={24} />}
-        />
+        {!name && (
+          <Button
+            size={"$4"}
+            zIndex={1}
+            type="ghost"
+            circular
+            icon={<Icon name="Notification" height={24} width={24} />}
+          />
+        )}
       </View>
     </XStack>
   );
