@@ -23,12 +23,12 @@ const PaymentCard = (props: PaymentCardType) => {
         <View
           w="$5"
           h="$5"
-          bg="$dark.2"
+          bg="$dark.9"
           borderRadius="$4"
           ai="center"
           jc="center"
         >
-          <Icon name="Dollar" height={28} width={28} color="#303437" />
+          <Icon name="Dollar" height={28} width={28} color="blue" />
         </View>
         <YStack>
           <Text type="body1" fontWeight="$4">
@@ -37,8 +37,9 @@ const PaymentCard = (props: PaymentCardType) => {
           <Text type="body2">2d ago</Text>
         </YStack>
       </XStack>
-      <YStack ai="flex-end">
+      <YStack ai="flex-end" jc="space-between">
         <Text type="body1">$1200</Text>
+        <View></View>
       </YStack>
     </XStack>
   );

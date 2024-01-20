@@ -8,6 +8,8 @@ import config from "tamagui.config";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LogBox } from "react-native";
+import { useEffect } from "react";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -27,6 +29,11 @@ const asyncStoragePersister = createAsyncStoragePersister({
 });
 
 export function RootLayout() {
+
+  // useEffect(() => {
+  //   LogBox.ignoreAllLogs()
+  // }, [])
+
   return (
     <PersistQueryClientProvider
       client={queryClient}

@@ -140,7 +140,7 @@ function Tabs({ isAdmin, spaceId }: { isAdmin: boolean; spaceId: string }) {
               >
                 {t}
               </Button>
-              <View h={2} w={20} margin="auto" bg={isActive ? "white" : "transparent"} />
+              <View h={2} w={20} margin="auto" bg={isActive ? "$primary.1" : "transparent"} />
             </YStack>
           );
         })}
@@ -307,14 +307,23 @@ function MembersTab({
   });
   return (
     <YStack mx="$4" gap="$2" pb="$6">
-      <XStack bg="white" p="$3" ai="center" jc="space-between" br={10}>
-        <Text type="body1">Actions</Text>
-        <XStack>
-          <Button type="ghost" size="$2" icon={<Icon name="Add" />} />
-          <Button type="outline" fontSize={"$2"} size="$2">
-            View All
-          </Button>
-        </XStack>
+      <XStack jc="space-between" ai="center">
+        {/* {isAdmin && (
+          <Link href="payments/create" asChild>
+            <Button type="ghost" circular size="$2" icon={<Icon name="Add" />} />
+          </Link>
+        )} */}
+        {/* <Link
+          href={{
+            pathname: "/(app)/spaces/[id]/payments/",
+            params: {
+              id: spaceId,
+            },
+          }}
+          asChild
+        >
+          <Text type="body2">View all members</Text>
+        </Link> */}
       </XStack>
       <YStack
         bg="white"
