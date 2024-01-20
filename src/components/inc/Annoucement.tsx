@@ -69,7 +69,23 @@ export function Annoucement({
       </YStack>
     );
   }
-
+  if (announcement?.length === 0) {
+    return (
+      <YStack
+        br={10}
+        borderWidth={1}
+        bg="white"
+        borderColor="#F3F2F3"
+        px="$3"
+        mx="$4"
+        h="$12"
+        ai="center"
+        jc="center"
+      >
+        <Text type="body2">No announcements</Text>
+      </YStack>
+    );
+  }
   return (
     <YStack gap="$2" px="$4">
       <Modal open={modalOpen} onOpenChange={setModalOpen}>

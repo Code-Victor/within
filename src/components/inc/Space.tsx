@@ -29,24 +29,27 @@ export const Space = (props: SpaceType) => {
       height="$15"
       f={1}
       jc="flex-start"
-      borderRadius="$4"
-      bg="$dark.2"
+      // borderRadius="$4"
+      // bg="$dark.2"
       overflow="hidden"
     >
       <Image
         source={{ uri: imageUrl }}
         style={{
           flex: 1,
+          borderRadius: 8,
         }}
       />
-      <YStack bg="$primary" w="100%" p="$2">
-        <Text type="h4" color="white">
-          {name}
-        </Text>
-        <Text type="body2" color="whitesmoke" whiteSpace="nowrap">
-          By {createdBy}
-        </Text>
-      </YStack>
+      <View position="absolute" bottom="$2" w="100%" px="$2">
+        <YStack w="100%" py="$1" px="$3" bg="$primary" mt="$2" borderRadius={6}>
+          <Text type="body1" fontWeight="$4" color="white">
+            {name}
+          </Text>
+          <Text mt={-3} type="body2" fontSize="$1" color="$dark.1" whiteSpace="nowrap">
+            By {createdBy}
+          </Text>
+        </YStack>
+      </View>
     </View>
   );
 };

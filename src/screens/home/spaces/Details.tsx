@@ -53,7 +53,7 @@ export default function Details() {
                 contentFit="cover"
                 style={{
                   aspectRatio: 3.24,
-                  borderRadius: 10,
+                  borderRadius: 5,
                   width: "100%",
                 }}
                 source={{
@@ -61,7 +61,7 @@ export default function Details() {
                 }}
               />
             </View>
-            <YStack gap="$2" px="$4">
+            <YStack gap="$0" px="$4">
               <XStack jc="space-between" ai="center">
                 <Text type="h3">{name}</Text>
                 <Button
@@ -77,23 +77,38 @@ export default function Details() {
                   }}
                 />
               </XStack>
-              <Text fontSize="$2">{space?.description}</Text>
-              <XStack gap="$2" ai="center">
-                <ListItem
-                  size={"$2"}
-                  f={1}
-                  ai="flex-end"
-                  icon={<Icon name="User" height={20} width={20} />}
+              {/* <Text fontSize="$2">{space?.description}</Text> */}
+              <XStack gap="$0" ai="center" gap="$2">
+                <Text type="body2" color="$dark.6">
+                  {space?.owner.fullName},
+                </Text>
+                <Text type="body2" color="$dark.6">
+                  {`${space?.members?.length} ${
+                    (space?.members?.length ?? 0) !== 1 ? "members" : "member"
+                  }`}
+                </Text>
+
+                {/* <ListItem
+                  size={"$1"}
+                  gap={-2}
+                  // f={1}
+                  width={200}
+                  ai="center"
+                  icon={<Icon name="User" height={16} width={16} />}
                   title={space?.owner.fullName}
                 />
                 <ListItem
-                  size={"$2"}
-                  f={1}
+                  size={"$1"}
+                  gap={-2}
+                  // f={1}
+                  width={200}
+                  ai="center"
+                  jc="flex-end"
                   icon={<Icon name="Users" height={24} width={24} />}
                   title={`${space?.members?.length} ${
                     (space?.members?.length ?? 0) > 1 ? "members" : "member"
                   }`}
-                />
+                /> */}
               </XStack>
             </YStack>
             <Annoucement isAdmin={isAdmin} spaceId={id} />
@@ -117,21 +132,27 @@ function Tabs({ isAdmin, spaceId }: { isAdmin: boolean; spaceId: string }) {
   };
   return (
     <YStack gap="$2">
-      <XStack bg="white" mx="$4" br={10} overflow="hidden">
+      <XStack bg="$dark.8" mx="$4" br={10} overflow="hidden" pt="$2">
         {(isAdmin ? dataTabs : dataTabs.slice(0, 2)).map((t) => {
           const isActive = currentTab === t;
           return (
-            <YStack f={1}>
+            <YStack f={1} ai="center">
               <Button
                 key={t}
                 type="ghost"
                 f={1}
                 br={4}
                 onPress={() => setCurrentTab(t)}
+                color={isActive ? "white" : "$dark.4"}
               >
                 {t}
               </Button>
-              <View h={2} bg={isActive ? "$primary" : "transparent"} />
+              <View
+                h={2}
+                w={20}
+                margin="auto"
+                bg={isActive ? "white" : "transparent"}
+              />
             </YStack>
           );
         })}
@@ -214,8 +235,8 @@ function ScheduleTab({
           <ScheduleCard title={item.title} date={item.startDate} />
         )}
         showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View px="$1"></View>}
-        contentContainerStyle={{ paddingLeft: 10 }}
+        ItemSeparatorComponent={() => <View h="$0.5"></View>}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
       />
     </YStack>
   );
@@ -243,26 +264,23 @@ function PaymentTab({
 
   return (
     <YStack mx="$4" gap="$2" pb="$6">
-      <XStack bg="white" p="$3" ai="center" jc="space-between" br={10}>
-        <Text type="body1">Actions</Text>
-        <XStack>
-          {isAdmin && (
-            <Button type="ghost" size="$2" icon={<Icon name="Add" />} />
-          )}
-          <Link
-            href={{
-              pathname: "/(app)/spaces/[id]/payments/",
-              params: {
-                id: spaceId,
-              },
-            }}
-            asChild
-          >
-            <Button type="outline" fontSize={"$2"} size="$2">
-              View All
-            </Button>
+      <XStack jc="space-between" ai="center">
+        {/* {isAdmin && (
+          <Link href="payments/create" asChild>
+            <Button type="ghost" circular size="$2" icon={<Icon name="Add" />} />
           </Link>
-        </XStack>
+        )} */}
+        <Link
+          href={{
+            pathname: "/(app)/spaces/[id]/payments/",
+            params: {
+              id: spaceId,
+            },
+          }}
+          asChild
+        >
+          <Text type="body2">View all payments</Text>
+        </Link>
       </XStack>
       <YStack
         bg="white"
