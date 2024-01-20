@@ -74,6 +74,7 @@ export const paymentRouter = router("payment", {
   }),
   walletTransactions: router.query({
     fetcher: walletTransactions,
+    refetchInterval: 10000,
   }),
 });
 /**

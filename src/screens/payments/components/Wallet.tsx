@@ -14,14 +14,21 @@ const Wallet = () => {
         spaceId: id,
       },
     });
-  const { data: transactions } = paymentRouter.walletTransactions.useQuery({
-    variables: {
-      spaceId: id,
-    },
-  });
+  const { data: transactions, isLoading: isWallectTransactionsLoading } =
+    paymentRouter.walletTransactions.useQuery({
+      variables: {
+        spaceId: id,
+      },
+    });
 
   console.log(JSON.stringify({ transactions }, null, 2));
-
+  if (isWallectTransactionsLoading) {
+    return (
+      <YStack mx="$4" py="$8" ai="center" jc="center">
+        <Text type="h4">Loading...</Text>
+      </YStack>
+    );
+  }
   return (
     <View f={1}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -53,8 +60,17 @@ const Wallet = () => {
                 flexGrow: 1,
               }}
               renderItem={({ item }) => (
-                <TransactionCard name={item.reason} amount={item.amount} />
+                <TransactionCard
+                  name={item.reason}
+                  amount={item.amount}
+                  clerkType={item.clerkType as any}
+                />
               )}
+              ListEmptyComponent={
+                <YStack mx="$4" py="$8" ai="center" jc="center">
+                  <Text type="h4">No transcations yet...</Text>
+                </YStack>
+              }
               scrollEnabled={false}
             />
           </YStack>

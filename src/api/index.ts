@@ -184,39 +184,35 @@ export async function getWallet({ spaceId }: { spaceId: string }) {
   const eject = tokenInterceptor();
   const response = await api.get<{
     wallet: {
-      wallet: {
-        available_balance: number;
-        createdAt: string;
-        id: string;
-        lock_withdrawals: number;
-        pending_balance: number;
-        space: string;
-        updatedAt: string;
-      };
+      available_balance: number;
+      createdAt: string;
+      id: string;
+      lock_withdrawals: number;
+      pending_balance: number;
+      space: string;
+      updatedAt: string;
     };
   }>(`/spaces/space/${spaceId}/payment/wallet`);
   eject();
-  return response.data.wallet.wallet ?? {};
+  return response.data.wallet ?? {};
 }
 
 export async function walletTransactions({ spaceId }: { spaceId: string }) {
   const eject = tokenInterceptor();
   const response = await api.get<{
-    walletTransactions: {
-      transactions: {
-        id: string;
-        space: string;
-        wallet: string;
-        clerkType: string;
-        reason: string;
-        createdAt: string;
-        updatedAt: string;
-        amount: number;
-      }[];
-    };
+    transactions: {
+      id: string;
+      space: string;
+      wallet: string;
+      clerkType: string;
+      reason: string;
+      createdAt: string;
+      updatedAt: string;
+      amount: number;
+    }[];
   }>(`/spaces/space/${spaceId}/payment/wallet/transactions`);
   eject();
-  return response.data?.walletTransactions?.transactions ?? [];
+  return response.data?.transactions ?? [];
 }
 
 export async function makePayment({
