@@ -10,7 +10,7 @@ import {
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { Animated, FlatList } from "react-native";
+import { Animated, FlatList, ToastAndroid } from "react-native";
 import {
   ListItem,
   ListItemTitle,
@@ -20,6 +20,7 @@ import {
   YStack,
   getTokens,
 } from "tamagui";
+import * as Clipboard from "expo-clipboard";
 
 export default function Details() {
   const { id, name } = useLocalSearchParams<{
@@ -59,8 +60,15 @@ export default function Details() {
                 <Text type="h3">{name}</Text>
                 <Button
                   size="$3"
-                  icon={<Icon name="Settings" />}
+                  icon={<Icon name="Copy" height={24} width={24} />}
                   type="ghost"
+                  onPress={async () => {
+                    await Clipboard.setStringAsync(space?.spaceCode);
+                    ToastAndroid.show(
+                      "Space Code copied to clipboard",
+                      ToastAndroid.SHORT
+                    );
+                  }}
                 />
               </XStack>
               <Text fontSize="$2">{space?.description}</Text>

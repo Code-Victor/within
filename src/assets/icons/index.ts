@@ -14,3 +14,4 @@ export { default as Add } from "./add.svg";
 export { default as AddLight } from "./add-light.svg";
 export { default as Dollar } from "./dollar.svg";
 export { default as Withdraw } from "./withdraw.svg";
+export { default as Copy } from "./copy.svg";
