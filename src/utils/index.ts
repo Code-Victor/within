@@ -119,3 +119,11 @@ export const passwordSchema = z
       message: "Password must have a minimum length of 8 characters.",
     }
   );
+export function monify(number: number) {
+  return number.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  });
+}

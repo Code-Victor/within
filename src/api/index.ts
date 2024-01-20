@@ -3,6 +3,7 @@ import {
   AuthResponse,
   GetAllSpacesResponse as GetAllSpacesResponse,
   GetAnnouncementResponse,
+  GetPaymentResponse,
   GetSpaceResponse,
   GetUserResponse,
   Space,
@@ -149,4 +150,54 @@ export async function getAnnouncements({ spaceId }: { spaceId: string }) {
   );
   eject();
   return response.data.announcements;
+}
+
+export async function createPayment({
+  spaceId,
+  ...data
+}: {
+  spaceId: string;
+  name: string;
+  description: string;
+  amount: number;
+  dueDate?: Date;
+}) {
+  const eject = tokenInterceptor();
+  const response = await api.post<GetAnnouncementResponse>(
+    `/spaces/space/${spaceId}/payment`,
+    data
+  );
+  eject();
+  return response.data;
+}
+export async function getPayment({ spaceId }: { spaceId: string }) {
+  const eject = tokenInterceptor();
+  const response = await api.get<GetPaymentResponse>(
+    `/spaces/space/${spaceId}/payment`
+  );
+  eject();
+  return response.data.payments;
+}
+export async function getWallet({ spaceId }: { spaceId: string }) {
+  const eject = tokenInterceptor();
+  const response = await api.get<GetPaymentResponse>(
+    `/spaces/space/${spaceId}/payment/wallet`
+  );
+  eject();
+  return response.data.payments;
+}
+
+export async function makePayment({
+  spaceId,
+  paymentId,
+}: {
+  spaceId: string;
+  paymentId: string;
+}) {
+  const eject = tokenInterceptor();
+  const response = await api.post<GetPaymentResponse>(
+    `/spaces/space/${spaceId}/payment/${paymentId}/pay`
+  );
+  eject();
+  return response.data;
 }

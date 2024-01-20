@@ -41,3 +41,17 @@ export interface Announcement {
   updatedAt: Date;
   id: string;
 }
+
+export interface GetPaymentResponse {
+  payments: Payment[];
+}
+
+export interface Payment {
+  name: string;
+  description: string;
+  amount: number;
+  space: string;
+  createdAt: Date;
+  updatedAt: Date;
+  id: string;
+}
