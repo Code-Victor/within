@@ -1,4 +1,9 @@
-import { authRouter, paymentRouter, spaceRouter } from "@/api/hooks";
+import {
+  authRouter,
+  paymentRouter,
+  scheduleRouter,
+  spaceRouter,
+} from "@/api/hooks";
 import { Button, Text, Icon } from "@/components/base";
 import {
   StackHeader,
@@ -73,8 +78,10 @@ export default function Details() {
                 />
               </XStack>
               {/* <Text fontSize="$2">{space?.description}</Text> */}
-              <XStack gap="$0" ai="center" gap="$2">
-                <Text type="body2" color="$dark.6">{space?.owner.fullName},</Text>
+              <XStack gap="$0" ai="center">
+                <Text type="body2" color="$dark.6">
+                  {space?.owner.fullName},
+                </Text>
                 <Text type="body2" color="$dark.6">
                   {`${space?.members?.length} ${
                     (space?.members?.length ?? 0) !== 1 ? "members" : "member"
@@ -119,7 +126,7 @@ type DataTab = (typeof dataTabs)[number];
 function Tabs({ isAdmin, spaceId }: { isAdmin: boolean; spaceId: string }) {
   const [currentTab, setCurrentTab] = React.useState<DataTab>("Schedules");
   const tabContent: Record<DataTab, React.ReactNode> = {
-    Schedules: <ScheduleTab {...{ isAdmin }} />,
+    Schedules: <ScheduleTab {...{ isAdmin, spaceId }} />,
     Payment: <PaymentTab {...{ isAdmin, spaceId }} />,
     Members: <MembersTab {...{ isAdmin, spaceId }} />,
   };
@@ -173,7 +180,26 @@ const schedules = [
     timeout: "30 mins",
   },
 ];
-function ScheduleTab({ isAdmin }: { isAdmin: boolean }) {
+function ScheduleTab({
+  isAdmin,
+  spaceId,
+}: {
+  isAdmin: boolean;
+  spaceId: string;
+}) {
+  const { data: schedules, isLoading } = scheduleRouter.get.useQuery({
+    variables: {
+      spaceId,
+    },
+  });
+  console.log({ isAdmin, spaceId });
+  if (isLoading) {
+    return (
+      <YStack ai="center" jc="center" py="$4">
+        <Text type="h4">Loading...</Text>
+      </YStack>
+    );
+  }
   return (
     <YStack gap="$2" pb="$4">
       <XStack mx="$4" bg="white" p="$3" ai="center" jc="space-between" br={10}>
@@ -182,16 +208,27 @@ function ScheduleTab({ isAdmin }: { isAdmin: boolean }) {
           {isAdmin && (
             <Button type="ghost" size="$2" icon={<Icon name="Add" />} />
           )}
-          <Button type="outline" fontSize={"$2"} size="$2">
-            View All
-          </Button>
+          <Link
+            href={{
+              pathname: "/(app)/spaces/[id]/schedules/",
+              params: {
+                id: spaceId,
+              },
+            }}
+            asChild
+          >
+            <Button type="outline" fontSize={"$2"} size="$2">
+              View All
+            </Button>
+          </Link>
         </XStack>
       </XStack>
       <FlatList
-        // horizontal={true}
-        scrollEnabled={false}
-        data={schedules}
-        renderItem={({ item }) => <ScheduleCard {...item} />}
+        horizontal={true}
+        data={schedules?.slice(0, 5) ?? []}
+        renderItem={({ item }) => (
+          <ScheduleCard title={item.title} date={item.startDate} />
+        )}
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View h="$0.5"></View>}
         contentContainerStyle={{ paddingHorizontal: 15 }}
