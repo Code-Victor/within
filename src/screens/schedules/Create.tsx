@@ -9,16 +9,20 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 const Create = () => {
   const [activeDay, setActiveDay] = useState<string | null>(null);
   const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [modalOpen, setModalOpen] = useState<"start" | "end" | null>(null);
+  const [selectedDate, setSelectedDate] = useState<{
+    start: Date;
+    end: Date;
+  }>({
+    start: new Date(),
+    end: new Date(),
+  });
+  const [title, setTitle] = useState("");
 
+  function handleSubmit() {}
   console.log(selectedDate);
   const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleChange = (propDate: any) => {
-    console.log(propDate);
+    setModalOpen(null);
   };
 
   return (
@@ -60,7 +64,7 @@ const Create = () => {
           </View>
           <YStack p="$4" mt="$4" gap="$8">
             <Input label="Title" />
-            <YStack gap="$1" onPress={() => setModalOpen(true)}>
+            <YStack gap="$1" onPress={() => setModalOpen("start")}>
               <Text type="body2">Start Date</Text>
               <View
                 bg="white"
@@ -70,7 +74,7 @@ const Create = () => {
                 borderColor={"$dark.2"}
               ></View>
             </YStack>
-            <YStack gap="$1" onPress={() => setModalOpen(true)}>
+            <YStack gap="$1" onPress={() => setModalOpen("end")}>
               <Text type="body2">End Date</Text>
               <View
                 bg="white"
@@ -80,7 +84,7 @@ const Create = () => {
                 borderColor={"$dark.2"}
               ></View>
             </YStack>
-            <Modal open={modalOpen} onOpenChange={closeModal}>
+            <Modal open={!!modalOpen} onOpenChange={closeModal}>
               <Modal.Content
                 f={1}
                 w="100%"
@@ -88,8 +92,28 @@ const Create = () => {
                 px="$5"
                 bg={"rgba(0, 0, 0, 0.1)"}
               >
-                <DatePicker
-                  onSelectedChange={(date) => setSelectedDate(date)}
+                <DateTimePicker
+                  mode="date"
+                  value={
+                    modalOpen === "start"
+                      ? selectedDate.start
+                      : selectedDate.end
+                  }
+                  minimumDate={new Date()}
+                  onChange={(e, date) => {
+                    if (modalOpen === "start") {
+                      setSelectedDate((s) => ({
+                        ...s,
+                        start: date!,
+                      }));
+                    } else {
+                      setSelectedDate((s) => ({
+                        ...s,
+                        end: date!,
+                      }));
+                    }
+                    setModalOpen(null);
+                  }}
                 />
                 <XStack w="100%" pt="$4" jc="center">
                   <Button
