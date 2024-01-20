@@ -83,7 +83,7 @@ export function Annoucement({
         ai="center"
         jc="center"
       >
-        <Text type="h4">No current announcements...</Text>
+        <Text type="body2">No announcements</Text>
       </YStack>
     );
   }

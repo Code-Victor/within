@@ -67,13 +67,7 @@ const Home = () => {
       </Modal>
       <DrawerHeader />
       <ScrollView>
-        <YStack gap="$6" py="$4" bg="$primary.1" f={1}>
-          <Link href="/spaces/123/payments" asChild>
-            <Button>Temp Payments CTA</Button>
-          </Link>
-          <Link href="/spaces/123/schedules" asChild>
-            <Button>Temp Schedules CTA</Button>
-          </Link>
+        <YStack gap="$8" py="$4" bg="$primary.1" f={1}>
           <XStack px="$4" ai="center" gap="$1">
             <Text type="h4">Welcome,</Text>
             <Text type="body1">{user?.fullName}</Text>
@@ -86,8 +80,8 @@ const Home = () => {
               Create a Space
             </Button>
           </XStack>
-          <YStack gap="$2">
-            <Text type="h4" px="$4">
+          {/* <YStack gap="$3">
+            <Text type="body1" fontWeight="$4" px="$4" color="$dark.8">
               Today Schedule
             </Text>
             <XStack>
@@ -100,10 +94,10 @@ const Home = () => {
                 contentContainerStyle={{ paddingLeft: 10 }}
               />
             </XStack>
-          </YStack>
-          <YStack gap="$2">
+          </YStack> */}
+          <YStack gap="$3">
             <XStack ai="center" jc="space-between" px="$4">
-              <Text type="h4">Created Spaces</Text>
+              <Text type="body1" fontWeight="$4" color="$dark.8">Created Spaces</Text>
               <Link href="/(app)/spaces">
                 <Text type="body2" color="$dark.6">
                   See all
@@ -128,9 +122,9 @@ const Home = () => {
               />
             </XStack>
           </YStack>
-          <YStack gap="$2">
+          <YStack gap="$3">
             <XStack ai="center" jc="space-between" px="$4">
-              <Text type="h4">Joined Spaces</Text>
+              <Text type="body1" fontWeight="$4" color="$dark.8">Joined Spaces</Text>
               <Link href="/(app)/spaces">
                 <Text type="body2" color="$dark.6">
                   See all
