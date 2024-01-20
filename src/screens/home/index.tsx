@@ -17,7 +17,7 @@ const Home = () => {
   };
 
   const modals = {
-    join: <Join />,
+    join: <Join closeModal={closeModal} />,
     create: <Create closeModal={closeModal} />,
   };
 
