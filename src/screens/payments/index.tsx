@@ -10,7 +10,7 @@ import Wallet from "./components/Wallet"
 
 const Payment = () => {
 
-  const admin = true;
+  const admin = false;
   const [tab, setTab] = useState<"wallet" | "payments">(admin ? "wallet" : "payments")
 
   return (

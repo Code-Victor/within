@@ -1,5 +1,6 @@
 import { Button, Icon } from '@/components/base'
 import PaymentCard from '@/components/inc/PaymentCard'
+import { Link } from 'expo-router'
 import React from 'react'
 import { FlatList } from 'react-native'
 import { View } from 'tamagui'
@@ -74,9 +75,18 @@ const Payments = () => {
         </View> }
       showsVerticalScrollIndicator={false}
       />
-      <Button circular size="$6" position="absolute" right="$5" bottom={60} borderRadius={99} elevation={0.5}>
-        <Icon name="AddLight" width={35} height={35} />
-      </Button>
+      <Link href="/spaces/123/payments/create" asChild>
+        <Button
+        // onPress={() => console.log("Hello")}
+        circular
+        size="$6"
+        position="absolute"
+        right="$5"
+        bottom={60}
+        borderRadius={99}
+        elevation={0.5}
+        icon={<Icon name="AddLight" width={35} height={35} />} />
+      </Link>
     </View>
   )
 }

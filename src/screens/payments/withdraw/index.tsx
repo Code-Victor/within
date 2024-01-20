@@ -1,18 +1,24 @@
-import { Input } from "@/components/base"
+import { Button, Input, Text } from "@/components/base"
 import { StackHeader } from "@/components/inc"
 import { View, YStack } from "tamagui"
 import { SelectBank } from "./components/SelectBank"
+import { Link } from "expo-router"
 
 const Withdraw = () => {
-
-  const banks = ["Ke", "ag"]
 
   return (
     <View>
       <StackHeader name="Withdraw" backButton={true} />
-      <YStack p="$4" gap="$6">
+      <YStack p="$4" gap="$4">
         <Input label="Account Number" />
-        <SelectBank label="Bank Name" data={banks} />
+        <SelectBank />
+        <View>
+          <Text type="body2">Account Name:</Text>
+          <Text type="h4" color="$primary">Apkantaku Dunsimi</Text>
+        </View>
+        <Link href="/spaces/123/withdraw/confirm" asChild>
+          <Button size="$5" mt="$3">Continue</Button>
+        </Link>
       </YStack>
     </View>
   )
