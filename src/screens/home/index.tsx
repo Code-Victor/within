@@ -134,12 +134,7 @@ const Home = () => {
                 </Text>
               </Link>
             </XStack>
-            {spaces?.memberSpaces ? (
-              <YStack h="$15" ai="center" jc="center" gap="$4">
-                <Text>No Joined spaces Yet</Text>
-                <Button width={120}>Join</Button>
-              </YStack>
-            ) : (
+            {spaces?.memberSpaces.length ? (
               <FlatList
                 horizontal={true}
                 data={spaces?.memberSpaces}
@@ -155,6 +150,11 @@ const Home = () => {
                 ItemSeparatorComponent={() => <View px="$1"></View>}
                 contentContainerStyle={{ paddingLeft: 10 }}
               />
+            ) : (
+              <YStack h="$15" ai="center" jc="center" gap="$4">
+                <Text>No Joined spaces Yet</Text>
+                <Button width={120}>Join</Button>
+              </YStack>
             )}
           </YStack>
         </YStack>
