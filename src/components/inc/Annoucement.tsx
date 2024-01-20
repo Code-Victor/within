@@ -22,12 +22,18 @@ const createAnnoucement = z.object({
   description: z.string().optional(),
 });
 type CreateAnnouncement = z.infer<typeof createAnnoucement>;
-export function Annoucement({ spaceId }: { spaceId: string }) {
+export function Annoucement({
+  isAdmin,
+  spaceId,
+}: {
+  isAdmin: boolean;
+  spaceId: string;
+}) {
   const { control, handleSubmit } = useForm<CreateAnnouncement>();
   const [modalOpen, setModalOpen] = React.useState(false);
   const { mutateAsync, isPending, isSuccess, reset } =
     announcementRouter.create.useMutation();
-  const { data: announcement } = announcementRouter.get.useQuery({
+  const { data: announcement, isLoading } = announcementRouter.get.useQuery({
     variables: {
       spaceId,
     },
@@ -46,6 +52,40 @@ export function Annoucement({ spaceId }: { spaceId: string }) {
         })
       );
     });
+  }
+  if (isLoading) {
+    return (
+      <YStack
+        br={10}
+        borderWidth={1}
+        bg="white"
+        borderColor="#F3F2F3"
+        px="$3"
+        mx="$4"
+        h="$12"
+        ai="center"
+        jc="center"
+      >
+        <Text type="h4">Loading...</Text>
+      </YStack>
+    );
+  }
+  if (announcement?.length === 0) {
+    return (
+      <YStack
+        br={10}
+        borderWidth={1}
+        bg="white"
+        borderColor="#F3F2F3"
+        px="$3"
+        mx="$4"
+        h="$12"
+        ai="center"
+        jc="center"
+      >
+        <Text type="h4">No current announcements...</Text>
+      </YStack>
+    );
   }
   return (
     <YStack gap="$2" px="$4">
@@ -117,7 +157,11 @@ export function Annoucement({ spaceId }: { spaceId: string }) {
           <Text color="$dark.5">View more</Text>
         </Link>
       </XStack>
-      <Button onPress={() => setModalOpen(true)}>Create an annoucement</Button>
+      {isAdmin && (
+        <Button onPress={() => setModalOpen(true)}>
+          Create an annoucement
+        </Button>
+      )}
       <YStack
         br={10}
         borderWidth={1}

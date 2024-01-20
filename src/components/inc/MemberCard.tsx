@@ -16,7 +16,6 @@ export function MemberCard({ name }: MemberCardProps) {
       </Avatar>
       <YStack f={1} gap="$1">
         <Text type="body1">{name}</Text>
-        <Text type="body2">Joined 12,July,2023</Text>
       </YStack>
     </XStack>
   );

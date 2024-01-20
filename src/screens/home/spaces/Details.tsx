@@ -21,6 +21,7 @@ import {
   getTokens,
 } from "tamagui";
 import * as Clipboard from "expo-clipboard";
+import { Link } from "expo-router";
 
 export default function Details() {
   const { id, name } = useLocalSearchParams<{
@@ -34,8 +35,6 @@ export default function Details() {
     },
   });
   const isAdmin = user?.id === space?.owner?.id;
-  console.log({ id });
-  console.log({ space });
   return (
     <YStack f={1}>
       <StackHeader name={name} backButton />
@@ -63,7 +62,7 @@ export default function Details() {
                   icon={<Icon name="Copy" height={24} width={24} />}
                   type="ghost"
                   onPress={async () => {
-                    await Clipboard.setStringAsync(space?.spaceCode);
+                    await Clipboard.setStringAsync(space?.spaceCode ?? "");
                     ToastAndroid.show(
                       "Space Code copied to clipboard",
                       ToastAndroid.SHORT
@@ -90,8 +89,8 @@ export default function Details() {
                 />
               </XStack>
             </YStack>
-            <Annoucement spaceId={id} />
-            <Tabs />
+            <Annoucement isAdmin={isAdmin} spaceId={id} />
+            <Tabs isAdmin={isAdmin} spaceId={id} />
           </YStack>
         </ScrollView>
       )}
@@ -102,17 +101,17 @@ export default function Details() {
 const dataTabs = ["Schedules", "Payment", "Members"];
 type DataTab = (typeof dataTabs)[number];
 
-const tabContent: Record<DataTab, React.ReactNode> = {
-  Schedules: <ScheduleTab />,
-  Payment: <PaymentTab />,
-  Members: <MembersTab />,
-};
-function Tabs() {
+function Tabs({ isAdmin, spaceId }: { isAdmin: boolean; spaceId: string }) {
   const [currentTab, setCurrentTab] = React.useState<DataTab>("Schedules");
+  const tabContent: Record<DataTab, React.ReactNode> = {
+    Schedules: <ScheduleTab {...{ isAdmin }} />,
+    Payment: <PaymentTab {...{ isAdmin, spaceId }} />,
+    Members: <MembersTab {...{ isAdmin, spaceId }} />,
+  };
   return (
     <YStack gap="$2">
       <XStack bg="white" mx="$4" br={10} overflow="hidden">
-        {dataTabs.map((t) => {
+        {(isAdmin ? dataTabs : dataTabs.slice(0, 2)).map((t) => {
           const isActive = currentTab === t;
           return (
             <YStack f={1}>
@@ -158,13 +157,15 @@ const schedules = [
     timeout: "30 mins",
   },
 ];
-function ScheduleTab() {
+function ScheduleTab({ isAdmin }: { isAdmin: boolean }) {
   return (
     <YStack gap="$2" pb="$4">
       <XStack mx="$4" bg="white" p="$3" ai="center" jc="space-between" br={10}>
         <Text type="body1">Actions</Text>
         <XStack>
-          <Button type="ghost" size="$2" icon={<Icon name="Add" />} />
+          {isAdmin && (
+            <Button type="ghost" size="$2" icon={<Icon name="Add" />} />
+          )}
           <Button type="outline" fontSize={"$2"} size="$2">
             View All
           </Button>
@@ -182,16 +183,34 @@ function ScheduleTab() {
   );
 }
 
-function PaymentTab() {
+function PaymentTab({
+  isAdmin,
+  spaceId,
+}: {
+  isAdmin: boolean;
+  spaceId: string;
+}) {
   return (
     <YStack mx="$4" gap="$2" pb="$6">
       <XStack bg="white" p="$3" ai="center" jc="space-between" br={10}>
         <Text type="body1">Actions</Text>
         <XStack>
-          <Button type="ghost" size="$2" icon={<Icon name="Add" />} />
-          <Button type="outline" fontSize={"$2"} size="$2">
-            View All
-          </Button>
+          {isAdmin && (
+            <Button type="ghost" size="$2" icon={<Icon name="Add" />} />
+          )}
+          <Link
+            href={{
+              pathname: "/(app)/spaces/[id]/payments/",
+              params: {
+                id: spaceId,
+              },
+            }}
+            asChild
+          >
+            <Button type="outline" fontSize={"$2"} size="$2">
+              View All
+            </Button>
+          </Link>
         </XStack>
       </XStack>
       <YStack
@@ -274,7 +293,18 @@ function PaymentTab() {
     </YStack>
   );
 }
-function MembersTab() {
+function MembersTab({
+  isAdmin,
+  spaceId,
+}: {
+  isAdmin: boolean;
+  spaceId: string;
+}) {
+  const { data: space, isLoading } = spaceRouter.get.useQuery({
+    variables: {
+      spaceId,
+    },
+  });
   return (
     <YStack mx="$4" gap="$2" pb="$6">
       <XStack bg="white" p="$3" ai="center" jc="space-between" br={10}>
@@ -293,10 +323,14 @@ function MembersTab() {
         borderWidth={1}
         separator={<View h={0.5} bg="$dark.4" />}
       >
-        <MemberCard name="Johanna Cruff" />
-        <MemberCard name="Victor Hamzat" />
-        <MemberCard name="Dunsimi Ola-ola-dehinde" />
-        <MemberCard name="Lens" />
+        {space?.members?.slice(0, 5).map((m) => {
+          return <MemberCard key={m.fullName} name={m.fullName} />;
+        })}
+        {space?.members.length === 0 && (
+          <YStack h="$10" ai="center" jc="center">
+            <Text type="h4">No space members yet...</Text>
+          </YStack>
+        )}
       </YStack>
     </YStack>
   );
