@@ -2,10 +2,10 @@ import { authRouter, spaceRouter } from "@/api/hooks";
 import { Button, Text, Icon } from "@/components/base";
 import {
   StackHeader,
-  Schedule,
   Space,
   Annoucement,
   MemberCard,
+  ScheduleCard,
 } from "@/components/inc";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
@@ -174,7 +174,7 @@ function ScheduleTab({ isAdmin }: { isAdmin: boolean }) {
       <FlatList
         horizontal={true}
         data={schedules}
-        renderItem={({ item }) => <Schedule {...item} />}
+        renderItem={({ item }) => <ScheduleCard {...item} />}
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View px="$1"></View>}
         contentContainerStyle={{ paddingLeft: 10 }}

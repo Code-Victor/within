@@ -1,5 +1,5 @@
 import { Button, Icon, Modal, Text } from "@/components/base";
-import { DrawerHeader, Schedule, Space } from "@/components/inc";
+import { DrawerHeader, ScheduleCard, Space } from "@/components/inc";
 import { useEffect, useState } from "react";
 import { FlatList, ScrollView } from "react-native";
 import { View, XStack, YStack, getTokens } from "tamagui";
@@ -71,6 +71,9 @@ const Home = () => {
           <Link href="/spaces/123/payments" asChild>
             <Button>Temp Payments CTA</Button>
           </Link>
+          <Link href="/spaces/123/schedules" asChild>
+            <Button>Temp Schedules CTA</Button>
+          </Link>
           <XStack px="$4" ai="center" gap="$1">
             <Text type="h4">Welcome,</Text>
             <Text type="body1">{user?.fullName}</Text>
@@ -91,7 +94,7 @@ const Home = () => {
               <FlatList
                 horizontal={true}
                 data={schedules}
-                renderItem={({ item }) => <Schedule {...item} />}
+                renderItem={({ item }) => <ScheduleCard {...item} />}
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={() => <View px="$1"></View>}
                 contentContainerStyle={{ paddingLeft: 10 }}
