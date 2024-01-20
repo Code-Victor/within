@@ -2,6 +2,7 @@ import React from "react";
 import { View, YStack } from "tamagui";
 import { Text } from "../base";
 import { router } from "expo-router";
+import { Image } from "expo-image";
 
 export type SpaceType = {
   id: string;
@@ -17,7 +18,7 @@ export const Space = (props: SpaceType) => {
     <View
       onPress={() => {
         router.push({
-          pathname: "/(app)/spaces/[id]",
+          pathname: "/(app)/spaces/[id]/",
           params: {
             id,
             name,
@@ -32,14 +33,13 @@ export const Space = (props: SpaceType) => {
       bg="$dark.2"
       overflow="hidden"
     >
-      <YStack
-        position="absolute"
-        bottom="$0"
-        f={1}
-        bg="$primary"
-        w="100%"
-        p="$2"
-      >
+      <Image
+        source={{ uri: imageUrl }}
+        style={{
+          flex: 1,
+        }}
+      />
+      <YStack bg="$primary" w="100%" p="$2">
         <Text type="h4" color="white">
           {name}
         </Text>
